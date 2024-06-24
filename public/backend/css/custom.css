@@ -1,0 +1,87 @@
+/*** Card ***/
+.card-header {
+    background-color: #f8f9fc;
+}
+/**** Bouton ****/
+.btn {
+    transition: 0.3s;
+}
+.form-switch .form-check-input {
+    width: 2.5em;
+    height: 19px;
+    margin-left: -3em;
+}
+.form-switch-success:checked {
+    background-color: #157347;
+    border-color: #157347;
+}
+
+/**** NavBar ****/
+.backgroundwhite {
+    background-color: #ffffff;
+}
+.sidebar-dark .sidebar-heading {
+    color: rgba(255, 255, 255);
+    font-size: 12px;
+}
+.sidebar .nav-item .nav-link {
+    padding: 8px;
+    padding-left: 18px;
+}
+.navbar-expand .navbar-nav .dropdown-menu {
+    margin-right: 10px;
+}
+.dropdown-menu:after {
+    display: none;
+}
+
+/**** SideBar ****/
+@media (min-width: 768px) {
+    .sidebar {
+        width: 22rem !important;
+    }
+    .sidebar .nav-item .nav-link {
+        width: 17rem !important;
+    }
+}
+.nav-tabs {
+    border: none;
+}
+.sidebar #sidebarToggle::after {
+    font-family: 'Font Awesome 5 Pro';
+}
+.sidebar.toggled #sidebarToggle::after {
+    font-family: 'Font Awesome 5 Pro';
+}
+.sidebar .nav-item .nav-link[data-toggle=collapse]::after {
+    font-family: 'Font Awesome 5 Pro';
+}
+.sidebar-dark hr.sidebar-divider {
+    border-top: 2px solid #FFFFFF;
+}
+.sidebar hr.sidebar-divider {
+    margin: 0 01rem;
+}
+
+/*** Message Flash ***/
+.top-message {
+    z-index: 10;
+    position: fixed;
+    width: 30%;
+    right: -150px;
+    transform:translateX(-50%);
+    top:85px;
+}
+
+/*** Datatable ***/
+.dt-search {
+    background-color: #4e73df;
+    color: #ffffff;
+    padding-left: 8px;
+    border-radius: 6px;
+}
+/*** Bug SummerNote ***/
+.note-editing-area {
+    background-color: #FFFFFF;
+}
+
