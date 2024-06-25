@@ -11,23 +11,23 @@ class CategorySeeder extends Seeder
     public function run()
     {
         $categories = [
-            'CHIEN' => [
-                'HYGIENE' => [
-                    'SOIN' => ['SHAMPOOINGS', 'LOTIONS', 'SPRAYS', 'LINGETTES'],
-                    'ANTIPARASITAIRE' => ['REPULSIFS', 'INSECTICIDES'],
+            'Chien' => [
+                'Hygiène' => [
+                    'Soin' => ['Shampooings', 'Lotions', 'Sprays', 'Lingettes'],
+                    'Antiparasitaire' => ['Répulsifs', 'Insecticides'],
                 ],
-                'MATERIEL' => [
-                    'JOUET' => ['BALLES', 'LATEX', 'PELUCHES', 'CHIOT', 'CORDES', 'CAOUTCHOU TPR'],
-                    'BROSSERIE' => [],
-                    'HABITAT' => ['CORBEILLES', 'TRANSPORTS', 'COUSSINS', 'ECUELLES'],
-                    'SELLERIE' => ['COLLIERS', 'LAISSES', 'ENSEMBLES', 'HARNAIS', 'PIQUETS', 'MUSELIERES'],
-                    'ACCESSOIRES' => [],
+                'Matériel' => [
+                    'Jouet' => ['Ballles', 'Latex', 'Peluches', 'Chiot', 'Cordes', 'Caoutchouc TPR'],
+                    'Brosserie' => [],
+                    'Habitat' => ['Corbeilles', 'Transports', 'Coussins', 'Écuelles'],
+                    'Sellerie' => ['Colliers', 'Laisses', 'Ensembles', 'Harnais', 'Piquets', 'Muselières'],
+                    'Accessoires' => [],
                 ],
-                'ALIMENT' => [
-                    'CROQUETTES' => ['CHIOT', 'ADULTE', 'SENIOR', 'DIET'],
-                    'SNACKS' => ['BISCUITS', 'STICKS', 'FILETS', 'FRIANDISES', 'OS À MACHER', 'EDUCATION'],
-                    'COMPLEMENTS' => ['VITAMINES', 'HUILES'],
-                    'HUMIDE' => ['DIET'],
+                'Aliment' => [
+                    'Croquettes' => ['Chiot', 'Adulte', 'Senior', 'Diet'],
+                    'Snacks' => ['Biscuits', 'Sticks', 'Filets', 'Friandises', 'Os à mâcher', 'Éducation'],
+                    'Compléments' => ['Vitamines', 'Huiles'],
+                    'Humide' => ['Diet'],
                 ],
             ],
         ];
@@ -35,13 +35,15 @@ class CategorySeeder extends Seeder
         $this->createCategories($categories);
     }
 
-    private function createCategories(array $categories, $parentId = 0)
+    private function createCategories(array $categories, $parentId = 0, $parentSlug = '')
     {
         $order = 0;
         foreach ($categories as $categoryName => $subcategories) {
+            $slug = ($parentSlug ? $parentSlug . '/' : '') . Str::slug($categoryName);
+
             $category = Category::create([
                 'name' => $categoryName,
-                'slug' => '/' . Str::slug($categoryName),
+                'slug' => $slug,
                 'category_id' => $parentId,
                 'is_menu' => 1,
                 'order' => $order,
@@ -49,13 +51,14 @@ class CategorySeeder extends Seeder
             $order += 1;
 
             if (is_array($subcategories)) {
-                foreach ($subcategories as $subcategoryName => $subSubcategories) {
-                    if (is_array($subSubcategories)) {
-                        $this->createCategories([$subcategoryName => $subSubcategories], $category->id);
+                foreach ($subcategories as $subKey => $subValue) {
+                    if (is_array($subValue)) {
+                        $this->createCategories([$subKey => $subValue], $category->id, $slug);
                     } else {
-                        $subCategory = Category::create([
-                            'name' => $subSubcategories,
-                            'slug' => '/' . Str::slug($categoryName) . '/' . Str::slug($subSubcategories),
+                        $subSlug = $slug . '/' . Str::slug($subValue);
+                        Category::create([
+                            'name' => $subValue,
+                            'slug' => $subSlug,
                             'category_id' => $category->id,
                             'is_menu' => 1,
                             'order' => $order,
