@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RoleSeeder::class,
             SuperAdminSeeder::class,
+            CategorySeeder::class,
         ]);
         User::create([
             'name' => 'Vienne Ludovic',
