@@ -20,7 +20,7 @@ class ProductController extends FrontendBaseController
 
     public function category_list(string $slug, Request $request)
     {
-        $category_current = Category::where('slug', '/'.$slug)->first();
+        $category_current = Category::where('slug', $slug)->first();
         $categories = Category::withCount('products')
             ->having('products_count', '>', 0)
             ->where('category_id', $category_current->id)
@@ -29,17 +29,17 @@ class ProductController extends FrontendBaseController
 
         /*** Query products with search and initial filtering ***/
         $productsQuery = Product::query()
-            ->with('images')
+            ->with(['images', 'categories'])
             ->where('active', 1)
-            ->where(function ($query) use ($categories, $category_current) {
-                $query->where('category_id', $category_current->id);
+            ->whereHas('categories', function ($query) use ($categories, $category_current) {
+                $query->where('catalog_categories.id', $category_current->id);
                 foreach ($categories as $category) {
-                    $query->orWhere('category_id', $category->id);
+                    $query->orWhere('catalog_categories.id', $category->id);
                     $subcategories = Category::where('category_id', $category->id)
                         ->where('active', 1)
                         ->pluck('id');
                     foreach ($subcategories as $subcategory) {
-                        $query->orWhere('category_id', $subcategory);
+                        $query->orWhere('catalog_categories.id', $subcategory);
                     }
                 }
             })
@@ -55,15 +55,15 @@ class ProductController extends FrontendBaseController
         /*** Get min and max prices of all products in subcategories ***/
         $products_price = Product::query()
             ->where('active', 1)
-            ->where(function ($query) use ($categories, $category_current) {
-                $query->where('category_id', $category_current->id);
+            ->whereHas('categories', function ($query) use ($categories, $category_current) {
+                $query->where('catalog_categories.id', $category_current->id);
                 foreach ($categories as $category) {
-                    $query->orWhere('category_id', $category->id);
+                    $query->orWhere('catalog_categories.id', $category->id);
                     $subcategories = Category::where('category_id', $category->id)
                         ->where('active', 1)
                         ->pluck('id');
                     foreach ($subcategories as $subcategory) {
-                        $query->orWhere('category_id', $subcategory);
+                        $query->orWhere('catalog_categories.id', $subcategory);
                     }
                 }
             });
@@ -148,12 +148,16 @@ class ProductController extends FrontendBaseController
         ]);
     }
 
+
+
     public function product_show(string $slug, Product $product)
     {
-        $product = $product->with(['category', 'images'])->where('slug', $slug)->first();
+        $product = $product->with(['categories', 'images'])->where('slug', $slug)->first();
+        $products_random = Product::with('images')->where('active',1)->inRandomOrder()->limit(6)->get();
         if($product) {
             return view('frontend.product.show', [
                 'product' => $product,
+                'products_random' => $products_random,
             ]);
         }
     }
