@@ -20,7 +20,7 @@ class ProductController extends FrontendBaseController
 
     public function category_list(string $slug, Request $request)
     {
-        $category_current = Category::where('slug', $slug)->first();
+        $category_current = Category::where('slug', '/'.$slug)->first();
         $categories = Category::withCount('products')
             ->having('products_count', '>', 0)
             ->where('category_id', $category_current->id)
