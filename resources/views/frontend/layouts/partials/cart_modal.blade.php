@@ -82,7 +82,7 @@
             <a href="{{ route('cart.index') }}" class="btn btn-success btn-lg hvr-grow-shadow" id="commander"><i class="fa-solid fa-cart-shopping-fast"></i> Commander</a>
 
         @else
-            <h4>Vous n'avez aucun produits dans votre panier</h4>
+            <h4 class="mt-5">Vous n'avez aucun produits dans votre panier</h4>
         @endif
     </div>
     <div class="offcanvas-footer text-center mb-3 mt-3">

@@ -4,6 +4,13 @@
         @foreach($sliders as $index => $slide)
             <div class="carousel-item @if($index == 0) active @endif">
                 <img src="/storage/upload/content/carousel/{{ $slide->image }}" class="d-block w-100" alt="{{ $slide->name }}">
+                @if($slide->description)
+                    <div class="carousel-caption d-none d-md-block" >
+                        <div class="card bg-primary p-5 shadow-xl">
+                            <p>{{ $slide->description }}</p>
+                        </div>
+                    </div>
+                @endif
             </div>
         @endforeach
     </div>

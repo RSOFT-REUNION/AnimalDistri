@@ -5,6 +5,7 @@
 
     {!! $page->content !!}
 
+    {{---
     <div class="row row-flex mb-5">
         <h4 class="mb-4">Découvrez nos produits</h4>
         @if(count($products_random) > 0)
@@ -17,5 +18,6 @@
             <h3>Aucun produit ne correspond</h3>
         @endif
     </div>
+    --}}
 
 @endsection

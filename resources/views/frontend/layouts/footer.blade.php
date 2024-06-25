@@ -1,41 +1,66 @@
-<footer class="mt-5" id="footer" data-aos="fade-right" data-aos-duration="400">
+<footer class="mt-5 bg-light shadow-top" id="footer" data-aos="fade-right" data-aos-duration="400">
+    <div class="footer-top">
+        <div class="container pt-3">
+            <div class="row  align-items-center">
 
-    <div class="footer-top p-5">
-        <div class="container">
-            <div class="row">
-
-                <div class="col-lg-4 col-md-4 col-12">
-                    <img class="img-fluid" src="{{ asset('/frontend/images/logo/logo_blanc.png') }}" alt="logo">
+                <div class="col-lg-4 col-md-4 col-12 text-center">
+                    <img class="w-50" src="{{ asset('/frontend/images/logo/logo.png') }}" alt="logo">
+                    <p class="mt-3">Animal Distri a pour activité principale: grossiste pour
+                        produits animaliers domestiques. Elle propose à la vente
+                        des accessoires et de l’alimentation pour animaux
+                        domestiques.</p>
                 </div>
 
-                <div class="col-lg-4 col-md-4 col-12  text-center">
-                    <h2 class="whitecolor">Saint-Pierre</h2>
-                    <div class="whitecolor">{!! $infos->address !!}</div>
-                    <div class="whitecolor m-2"><a href="tel:{{ $infos->phone }}"  class="text-decoration-none" ><i class="fa-solid fa-phone"></i> {{ $infos->phone }}</a></div>
-                    <div class="whitecolor m-2"><a href="mailto:"  class="text-decoration-none" ><i class="fa-solid fa-envelope"></i> {{ $infos->email }}</a></div>
+                <div class="col-lg-4 col-md-4 col-12 contact">
+                    <div class="d-flex justify-content-center">
+                        <div class="info w-50">
+                            <div class="address mb-4">
+                                <i class="fa-solid fa-location-dot me-3"></i>
+                                <p class="m-0"><b>Adresse</b></p>
+                                <p>{!! $infos->address !!}</p>
+                            </div>
+
+                            <div class="phone mb-4">
+                                <i class="fa-solid fa-phone me-3"></i>
+                                <p class="m-0"><b>Contactez-nous</b></p>
+                                <p>{{ $infos->phone }}</p>
+                            </div>
+
+                            <div class="email mb-4">
+                                <i class="fa-regular fa-envelope me-3"></i>
+                                <p class="m-0"><b>Adresse E-mail</b></p>
+                                <p>{{ $infos->email }}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="col-lg-4 col-md-4 col-12 text-center">
-                    <h2 class="whitecolor">Informations</h2>
-                    <ul style="list-style: none;" class="p-0 m-0">
-                        <li class="m-3"><a class="text-decoration-none" href="/nos-magasins">Nos magasins</a></li>
-                        <li class="m-3"><a class="text-decoration-none" href="{{ route('legalnotice') }}">Mentions légales</a></li>
-                        <li class="m-3"><a class="text-decoration-none" href="{{ route('termsofservice') }}">Conditions générales d'utilisation</a></li>
-                    </ul>
+                    <div id="fb-root"></div>
+                    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v20.0" nonce="Eh5WeaT4"></script>
+                    <div class="fb-page"
+                         data-href="https://www.facebook.com/animal.distri.sas/"
+                         data-width="380"
+                         data-hide-cover="false"
+                         data-show-facepile="false"></div>
                 </div>
 
             </div>
+
+            <div class="p-3 text-center">
+                <hr>
+                <a class="text-decoration-none blackcolor" href="{{ route('legalnotice') }}">Mentions légales</a> | <a class="text-decoration-none blackcolor" href="{{ route('termsofservice') }}">Conditions générales de ventes</a> | <a class="text-decoration-none blackcolor" href="{{ route('termsofservice') }}">A propos de nous</a>
+            </div>
+
         </div>
     </div>
 
-    <div class="footer-bottom clearfix p-3">
+    <div class="footer-bottom clearfix bg-primary p-2">
         <div class="container">
-            <div class="d-flex mb-3">
-                <div class="me-auto p-2">&copy; 2023 - {{ now()->year }} | RCMS | Développé par <strong><a href="http://www.rsoft.re/" target="_blank" class="text-decoration-none blackcolor">RSOFT RÉUNION</a></strong></div>
+            <div class="d-flex align-items-center">
+                <div class="me-auto p-2 text-white">&copy; {{ now()->year }} | Animal Distri | Développé par <strong><a href="http://www.rsoft.re/" target="_blank" class="text-decoration-none link-dark">RSOFT RÉUNION</a></strong></div>
                 <div>
-                    <a href="" target="_blank" class="me-2 hvr-float-shadow blackcolor"><i class="fa-brands fa-linkedin fa-2x"></i></a>
-                    <a href="" target="_blank" class="me-2 hvr-float-shadow blackcolor"><i class="fa-brands fa-instagram fa-2x"></i></a>
-                    <a href="" target="_blank" class="hvr-float-shadow blackcolor"><i class="fa-brands fa-square-facebook fa-2x"></i></a>
+                    <i class="fa-brands fa-cc-mastercard text-white me-2 fa-xl"></i> <i class="fa-brands fa-cc-visa text-white fa-xl"></i>
                 </div>
             </div>
         </div>
