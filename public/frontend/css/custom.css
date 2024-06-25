@@ -533,19 +533,6 @@ a.nav-link.active {
 .card-img-overlay {
     padding: 0;
 }
-h5.card-title{
-    margin: 0;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-    padding-bottom: 20px;
-    padding-top: 50px;
-    color: #fff;
-    background: linear-gradient(to top, #000000, rgba(0, 0, 0, 0));
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-}
 .modal-header {
     background-color: #3399cc;
     color: #fff;

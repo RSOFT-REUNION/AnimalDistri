@@ -14,7 +14,7 @@ class ProductController extends FrontendBaseController
     public function first_category_list(Request $request)
     {
         return view('frontend.product.first_category_list', [
-            'first_category_list' => Category::whereNull('category_id')->where('active', 1)->limit(4)->get(),
+            'first_category_list' => Category::where('category_id', 0)->where('active', 1)->limit(4)->get(),
         ]);
     }
 
