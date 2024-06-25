@@ -39,7 +39,7 @@ class ProductController extends Controller
             'tva' => 'in:0,210,850|required',
             'images' => 'array',
             'images.*' => 'image|nullable|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'category_id' => 'integer|nullable',
+            'product_categories' => 'array|nullable',
             'brand_id' => 'integer|nullable',
             'short_description' => 'string|max:255|nullable',
             'active' => 'nullable',
@@ -51,7 +51,7 @@ class ProductController extends Controller
         $validatedData['created_by_id'] = auth()->id();
 
         $product = Product::create($validatedData);
-        $product->update($validatedData);
+        @$product->categories()->sync($validatedData['product_categories']);
         if ($request->hasFile('images')) {
             $product->attachImages($product->id, @$validatedData['images']);
 
@@ -68,6 +68,7 @@ class ProductController extends Controller
     {
         return view('backend.catalog.product.edit', [
             'product' => $product,
+            'product_categories' => $product->categories()->pluck('id')->all(),
             'categories_list' => Category::with(['childrenCategories' => function ($q) {
                 $q->orderBy('name');
             }])->get(),
@@ -84,7 +85,7 @@ class ProductController extends Controller
             'labels' => 'nullable',
             'name' => 'string|min:3|max:255|required',
             'barcode' => 'string|nullable',
-            'category_id' => 'integer|nullable',
+            'product_categories' => 'array|nullable',
             'brand_id' => 'integer|nullable',
             'short_description' => 'string|max:100|nullable',
             'code_article'  => 'string|max:255|nullable',
@@ -112,6 +113,7 @@ class ProductController extends Controller
         $validatedData['updated_by_id'] = auth()->id();
 
         $product->update($validatedData);
+        @$product->categories()->sync($validatedData['product_categories']);
         return back()->withSuccess('Produit modifié avec succès');
     }
 
@@ -167,7 +169,8 @@ class ProductController extends Controller
 
     public function import(Request $request)
     {
+        // TODO mettre a jour l'import avec la gestion du multi catégorie
         Excel::import(new CatalogProductImport(), $request->csv);
-        return back()->withSuccess('Produits importer avec succès');
+        return back()->withSuccess('Produits importé avec succès');
     }
 }

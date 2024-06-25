@@ -11,12 +11,17 @@ class Product extends Model
 {
     protected $table = 'catalog_products';
 
-    protected $fillable = ['code_article', 'name', 'slug', 'category_id', 'brands', 'fav_image', 'short_description', 'content', 'composition', 'tags', 'barcode', 'weight_unit', 'weight', 'price_ht','tva','price_ttc','stock', 'stock_unit', 'active', 'created_by_id','updated_by_id', 'deleted_by_id' ];
+    protected $fillable = ['code_article', 'name', 'slug', 'brands', 'fav_image', 'short_description', 'content', 'composition', 'tags', 'barcode', 'weight_unit', 'weight', 'price_ht','tva','price_ttc','stock', 'stock_unit', 'active', 'created_by_id','updated_by_id', 'deleted_by_id' ];
 
     public $images_directory = '/upload/catalog/products/';
 
     public function category () {
         return $this->belongsTo(Category::class);
+    }
+
+    public function categories(): BelongsToMany
+    {
+        return $this->BelongsToMany (Category::class, 'catalog_product_categories');
     }
 
     public function brands (): HasMany

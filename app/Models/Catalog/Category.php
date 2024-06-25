@@ -4,6 +4,7 @@ namespace App\Models\Catalog;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Category extends Model
 {
@@ -13,8 +14,10 @@ class Category extends Model
     public function categories(): HasMany {
         return $this->hasMany(Category::class);
     }
-    public function products(): HasMany {
-        return $this->hasMany(Product::class);
+
+    public function products(): BelongsToMany
+    {
+        return $this->BelongsToMany (Product::class, 'catalog_product_categories');
     }
 
     public function childrenCategories(): HasMany {

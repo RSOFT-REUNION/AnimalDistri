@@ -86,27 +86,29 @@
                     {{-- CATEGORIE --}}
                     <div class="form-group row">
                         <div class="col">
-                            <label class="form-control-label" for="category_id">Catégorie </label>
-                            <select class="form-select tomselect @error('category_id') is-invalid @enderror"
-                                    id="category_id" name="category_id">
-                                <option value=""> Aucune catégorie</option>
-                                @foreach($categories_list as $category_list)
-                                    @if($category_list->category_id == null)
-                                        <option @if($category_list->id == old('category_id')) selected @endif
-                                                value="{{ $category_list->id }}"> {{ $category_list->name }}</option>
-                                        @foreach($category_list->childrenCategories as $childrenCategories)
-                                            <option @if($childrenCategories->id == old('category_id')) selected @endif
-                                                    value="{{ $childrenCategories->id }}">{{ $category_list->name }} -> {{ $childrenCategories->name }}</option>
-                                            @foreach($childrenCategories->childrenCategories as $childrenChildrenCategories)
-                                                @if($childrenCategories->id != $childrenChildrenCategories->id)
-                                                    <option @if($childrenChildrenCategories->id == old('category_id')) selected @endif
-                                                            value="{{ $childrenChildrenCategories->id }}">{{ $category_list->name }} -> {{ $childrenCategories->name }} -> {{ $childrenChildrenCategories->name }}</option>                                                    @endif
-                                            @endforeach
-                                        @endforeach
-                                    @endif
+                            <label class="form-control-label" for="product_categories[]">Catégories </label>
+                            <select class="form-select tomselectmultiplecategories @error('product_categories') is-invalid @enderror" multiple
+                            id="product_categories[]" name="product_categories[]">
+                        <option value="">Aucune catégorie</option>
+                        @foreach($categories_list as $category_list)
+                            @if($category_list->category_id == null)
+                                <option {{ in_array($category_list->id, old('product_categories') ?? []) ? 'selected' : '' }}
+                                        value="{{ $category_list->id }}">{{ $category_list->name }}</option>
+                                @foreach($category_list->childrenCategories as $childrenCategories)
+                                    <option {{ in_array($childrenCategories->id, old('product_categories') ?? []) ? 'selected' : '' }}
+                                            value="{{ $childrenCategories->id }}">{{ $category_list->name }} -> {{ $childrenCategories->name }}</option>
+                                    @foreach($childrenCategories->childrenCategories as $childrenChildrenCategories)
+                                        @if($childrenCategories->id != $childrenChildrenCategories->id)
+                                            <option {{ in_array($childrenChildrenCategories->id, old('product_categories') ?? []) ? 'selected' : '' }}
+                                                    value="{{ $childrenChildrenCategories->id }}">{{ $category_list->name }} -> {{ $childrenCategories->name }} -> {{ $childrenChildrenCategories->name }}</option>
+                                        @endif
+                                    @endforeach
                                 @endforeach
-                            </select>
-                            @error('category_id')
+                            @endif
+                        @endforeach
+                    </select>
+
+                            @error('product_categories')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>

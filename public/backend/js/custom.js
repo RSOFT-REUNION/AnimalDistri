@@ -167,6 +167,21 @@ if (tomselectmultiple) {
     });
 }
 
+const tomselectmultiplecategories = document.querySelector(".tomselectmultiplecategories");
+if (tomselectmultiplecategories) {
+    new TomSelect(tomselectmultiplecategories,{
+        plugins:['remove_button'],
+        persist: true,
+        create: false,
+        hidePlaceholder: true,
+        maxOptions: 15,
+        sortField: {
+            field: "text",
+            direction: "asc"
+        }
+    });
+}
+
 /***********
  ***********
  ***********

@@ -36,25 +36,24 @@
         <div class="form-group row">
             {{-- CATEGORIE --}}
             <div class="col">
-                <label class="form-control-label" for="code_article">Catégorie </label>
-                <select class="form-select tomselect @error('categorie') is-invalid @enderror"
-                        aria-label="category_id"
-                        id="category_id" name="category_id">
+                <label class="form-control-label" for="product_categories[]">Catégories </label>
+                <select class="form-select tomselectmultiplecategories @error('product_categories') is-invalid @enderror" multiple
+                        aria-label="product_categories"
+                        id="product_categories[]" name="product_categories[]">
                     <option value="" selected > Aucune categorie</option>
                     @foreach($categories_list as $category_list)
                         @if($category_list->category_id == null)
-                            <option @if($category_list->id == old('category_id')) selected
-                                    @endif @if($category_list->id == $product->category_id) selected @endif
+                            <option {{ in_array($category_list->id, $product_categories ?? []) ? 'selected' : '' }}
+                                {{ in_array($category_list->id, old('product_categories') ?? []) ? 'selected' : '' }}
                                     value="{{ $category_list->id }}"> {{ $category_list->name }}</option>
                             @foreach($category_list->childrenCategories as $childrenCategories)
-
-                                <option @if($childrenCategories->id == old('category_id')) selected
-                                        @endif @if($childrenCategories->id == $product->category_id) selected @endif
+                                <option {{ in_array($childrenCategories->id, $product_categories ?? []) ? 'selected' : '' }}
+                                        {{ in_array($childrenCategories->id, old('product_categories') ?? []) ? 'selected' : '' }}
                                         value="{{ $childrenCategories->id }}">{{ $category_list->name }} -> {{ $childrenCategories->name }}</option>
                                 @foreach($childrenCategories->childrenCategories as $childrenChildrenCategories)
                                     @if($childrenCategories->id != $childrenChildrenCategories->id)
-                                        <option @if($childrenChildrenCategories->id == old('category_id')) selected
-                                                @endif @if($childrenChildrenCategories->id == $product->category_id) selected @endif
+                                        <option {{ in_array($childrenChildrenCategories->id, $product_categories ?? []) ? 'selected' : '' }}
+                                                {{ in_array($childrenChildrenCategories->id, old('product_categories') ?? []) ? 'selected' : '' }}
                                                 value="{{ $childrenChildrenCategories->id }}">{{ $category_list->name }} -> {{ $childrenCategories->name }} -> {{ $childrenChildrenCategories->name }}</option>                                                    @endif
                                 @endforeach
 
@@ -62,7 +61,7 @@
                         @endif
                     @endforeach
                 </select>
-                @error('category_id')
+                @error('product_categories')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>

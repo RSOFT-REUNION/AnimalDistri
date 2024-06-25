@@ -15,17 +15,19 @@ return new class extends Migration {
             $table->longText('description')->nullable();
             $table->string('image')->nullable();
             $table->string('slug')->nullable()->unique();
-            $table->foreignId('category_id')->nullable();
+            $table->foreignId('category_id')->default(0);
             $table->integer('order')->default(0);
             $table->boolean('is_menu')->default(0);
             $table->boolean('active')->default(1);
             $table->softDeletes();
             $table->timestamps();
         });
-        Schema::table('catalog_products', function (Blueprint $table) {
-            $table->foreignIdFor(Category::class)->after('name')->nullable()->constrained('catalog_categories');
-        });
 
+        Schema::create('catalog_product_categories', function (Blueprint $table) {
+            $table->foreignIdFor(\App\Models\Catalog\Product::class)->constrained('catalog_products')->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\Catalog\Category::class)->constrained('catalog_categories')->cascadeOnDelete();
+            $table->primary(['product_id', 'category_id']);
+        });
         /*** Ajout des permissions **/
         $permissions = [
             [
