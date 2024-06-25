@@ -39,7 +39,7 @@ class BrandsController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|min:3|max:255|string|unique:catalog_brands',
-            'description' => 'max:255',
+            'description' => 'string|nullable',
         ]);
         $validatedData['slug'] = '/'.Str::slug($validatedData['name']);
         Brand::create($validatedData);
@@ -64,7 +64,7 @@ class BrandsController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|min:3|max:255|string',
-            'description' => 'max:255',
+            'description' => 'string|nullable',
         ]);
         $validatedData['slug'] = '/'.Str::slug($validatedData['name']);
         Brand::where('id', $brand->id)->update($validatedData);

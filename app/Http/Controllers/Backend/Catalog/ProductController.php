@@ -41,7 +41,7 @@ class ProductController extends Controller
             'images.*' => 'image|nullable|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'product_categories' => 'array|nullable',
             'brand_id' => 'integer|nullable',
-            'short_description' => 'string|max:255|nullable',
+            'short_description' => 'string|nullable',
             'active' => 'nullable',
         ]);
         @$validatedData['active'] = $validatedData['active'] == 'on' ? 1 : 0;
@@ -87,8 +87,8 @@ class ProductController extends Controller
             'barcode' => 'string|nullable',
             'product_categories' => 'array|nullable',
             'brand_id' => 'integer|nullable',
-            'short_description' => 'string|max:100|nullable',
-            'code_article'  => 'string|max:255|nullable',
+            'short_description' => 'string|nullable',
+            'code_article'  => 'string|nullable',
             'tags' => 'nullable',
             'composition' => 'string|nullable',
             'content' => 'string|nullable',

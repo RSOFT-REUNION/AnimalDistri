@@ -135,6 +135,22 @@ window.setTimeout(function() {
 /***********
  ***********
  ***********
+ Auto Re-open Invalid Modal
+ ***********
+ ***********
+ ***********/
+ $(document).ready(function () {
+    $('.modal form').each(function () {
+        if ($(this).find(':input').hasClass("is-invalid")) {
+            var parent_modal = $(this).closest('.modal');
+            parent_modal.modal('show');
+        }
+    })
+});
+
+/***********
+ ***********
+ ***********
  TomSelect
  ***********
  ***********
@@ -174,7 +190,7 @@ if (tomselectmultiplecategories) {
         persist: true,
         create: false,
         hidePlaceholder: true,
-        maxOptions: 15,
+        maxOptions: 100,
         sortField: {
             field: "text",
             direction: "asc"

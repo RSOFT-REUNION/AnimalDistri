@@ -132,9 +132,8 @@
                     {{-- DESCRIPTION COURTE --}}
                     <div class="form-group">
                         <label class="form-control-label" for="short_description">Description courte <span class="small text-body-secondary">(facultatif)</span></label>
-                        <textarea id="short_description" name="short_description" maxlength="255" rows="2"
+                        <textarea id="short_description" name="short_description" rows="3"
                                class="@error('short_description') is-invalid @enderror form-control">{{ old('short_description') }}</textarea>
-                        <div id="price_ttc" class="form-text">Maximum 255 caractères.</div>
                         @error('short_description')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror

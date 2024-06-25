@@ -25,7 +25,7 @@ return new class extends Migration {
             $table->integer('price_ht');
             $table->integer('tva')->default(0);
             $table->integer('price_ttc')->nullable();
-            $table->integer('stock')->default(1000); // "stock réel" dans EBP; 1000 par défaut car stocké en millième pour le calcul au kg (vrac)
+            $table->integer('stock')->default(0); // "stock réel"
             $table->string('stock_unit')->default('unit'); // Unité de vente. valeurs possibles: soit Unité, soit Kilogramme ou Litre pour le vrac
             $table->boolean('active')->default(1);
             $table->integer('created_by_id')->nullable();

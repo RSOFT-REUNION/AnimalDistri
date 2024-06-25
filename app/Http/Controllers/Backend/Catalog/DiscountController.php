@@ -46,7 +46,7 @@ class DiscountController extends Controller
             //'icon' => 'in:star,heart,bolt,gift,snowflake,grill-hot,fish,leaf,award,head-side,meat,sparkles,bookmark,circle-euro,mug-tea,watermelon-slice,tree-palm,user-tie|required',
             'start_date' => 'date|required|after_or_equal:yesterday',
             'end_date' => 'date|required|after_or_equal:start_date',
-            'short_description' => 'string|max:255|nullable',
+            'short_description' => 'string|nullable',
             'active' => 'nullable',
         ]);
         @$validated['active'] = $validated['active'] == 'on' ? 1 : 0;
@@ -76,7 +76,7 @@ class DiscountController extends Controller
             //'icon' => 'in:star,heart,bolt,gift,snowflake,grill-hot,fish,leaf,award,head-side,meat,sparkles,bookmark,circle-euro,mug-tea,watermelon-slice,tree-palm,user-tie|required',
             'start_date' => 'date|required',
             'end_date' => 'date|required|after_or_equal:start_date',
-            'short_description' => 'string|max:255|nullable',
+            'short_description' => 'string|nullable',
             'active' => 'nullable',
         ]);
         @$validated['active'] = $validated['active'] == 'on' ? 1 : 0;

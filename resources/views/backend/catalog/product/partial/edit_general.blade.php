@@ -7,13 +7,22 @@
 
         {{-- NOM DU PRODUIT --}}
         <div class="form-group">
-            <div class="form-group">
+            <div class="form-group col">
                 <label class="form-control-label" for="name">Nom du produit <span class="small text-danger">*</span></label>
                 <input type="text" id="name" name="name"
                        class="@error('name') is-invalid @enderror form-control" required
                        value="{{ old('name', $product->name) }}">
                 <div id="price_ttc" class="form-text text-truncate w-75">   Lien du produit : <a target="_blank" href="{{ route('product.show', $product->slug) }}">{{ route('product.show', $product->slug) }}</a></div>
                 @error('name')
+                <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="form-group col">
+                <label class="form-control-label" for="code_article">Code Article</label>
+                <input type="text" id="code_article" name="code_article"
+                       class="@error('code_article') is-invalid @enderror form-control"
+                       value="{{ old('code_article', $product->code_article) }}">
+                @error('code_article')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
@@ -40,7 +49,7 @@
                 <select class="form-select tomselectmultiplecategories @error('product_categories') is-invalid @enderror" multiple
                         aria-label="product_categories"
                         id="product_categories[]" name="product_categories[]">
-                    <option value="" selected > Aucune categorie</option>
+                    <option value="" selected > Aucune catégorie</option>
                     @foreach($categories_list as $category_list)
                         @if($category_list->category_id == null)
                             <option {{ in_array($category_list->id, $product_categories ?? []) ? 'selected' : '' }}
@@ -86,9 +95,9 @@
         {{-- DESCRIPTION COURTE --}}
         <div class="form-group">
             <label class="form-control-label" for="short_description">Description courte <span class="small text-body-secondary">(facultatif)</span></label>
-            <textarea id="short_description" name="short_description" maxlength="100" rows="2"
+            <textarea id="short_description" name="short_description" rows="2"
                       class="@error('short_description') is-invalid @enderror form-control">{{ old('short_description', $product->short_description) }}</textarea>
-            <div id="price_ttc" class="form-text">Maximum 100 caractères.</div>
+
             @error('short_description')
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror
