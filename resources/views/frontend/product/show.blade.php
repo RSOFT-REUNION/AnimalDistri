@@ -4,9 +4,11 @@
 
 @section('main-content')
 
+
+
     <div style="margin-top: -15px;" class="mb-5">
         <nav aria-label="breadcrumb">
-            <ol class="breadcrumb breadcrumb-nav mt-5 p-3">
+            <ol class="breadcrumb breadcrumb-nav mt-5 p-3 custom-breadcrumb">
                 <li class="breadcrumb-item">
                     <a class="link-dark" href="{{ route('index') }}">
                         <i class="fa-solid fa-home"></i>
@@ -19,6 +21,11 @@
                 @foreach($product->categories as $category)
                     @if($parentCategory = getCategoryParentInfo($category->category_id))
                         @if($grandParentCategory = getCategoryParentInfo($parentCategory->category_id))
+                            @if($greatGrandParentCategory = getCategoryParentInfo($grandParentCategory->category_id))
+                                <li class="breadcrumb-item">
+                                    <a class="link-dark" href="/nos-produits/{{ $greatGrandParentCategory->slug }}">{{ $greatGrandParentCategory->name }}</a>
+                                </li>
+                            @endif
                             <li class="breadcrumb-item">
                                 <a class="link-dark" href="/nos-produits/{{ $grandParentCategory->slug }}">{{ $grandParentCategory->name }}</a>
                             </li>
@@ -31,6 +38,7 @@
                         <a class="link-dark" href="/nos-produits/{{ $category->slug }}">{{ $category->name }}</a>
                     </li>
                 @endforeach
+
 
                 <li class="breadcrumb-item active link-dark" aria-current="page">{{ $product->name }}</li>
             </ol>

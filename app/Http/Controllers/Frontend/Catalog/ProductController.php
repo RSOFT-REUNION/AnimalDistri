@@ -21,10 +21,29 @@ class ProductController extends FrontendBaseController
     public function category_list(string $slug, Request $request)
     {
         $category_current = Category::where('slug', $slug)->first();
-        $categories = Category::withCount('products')
-            ->having('products_count', '>', 0)
-            ->where('category_id', $category_current->id)
+
+        // Function to get all descendant category IDs recursively that have products
+        function getDescendantCategoryIds($categoryId, $level = 0, $maxLevel = 4) {
+            if ($level >= $maxLevel) {
+                return collect();
+            }
+
+            $subcategories = Category::where('category_id', $categoryId)
+                ->where('active', 1)
+                ->has('products')
+                ->pluck('id');
+
+            $allDescendantIds = $subcategories->flatMap(function($subcategoryId) use ($level, $maxLevel) {
+                return getDescendantCategoryIds($subcategoryId, $level + 1, $maxLevel);
+            });
+
+            return $subcategories->merge($allDescendantIds);
+        }
+
+        // Get initial categories that have products
+        $categories = Category::where('category_id', $category_current->id)
             ->where('active', 1)
+            ->has('products')
             ->get();
 
         /*** Query products with search and initial filtering ***/
@@ -33,13 +52,15 @@ class ProductController extends FrontendBaseController
             ->where('active', 1)
             ->whereHas('categories', function ($query) use ($categories, $category_current) {
                 $query->where('catalog_categories.id', $category_current->id);
+
                 foreach ($categories as $category) {
                     $query->orWhere('catalog_categories.id', $category->id);
-                    $subcategories = Category::where('category_id', $category->id)
-                        ->where('active', 1)
-                        ->pluck('id');
-                    foreach ($subcategories as $subcategory) {
-                        $query->orWhere('catalog_categories.id', $subcategory);
+
+                    // Get all descendant category IDs up to 4 levels
+                    $allDescendantIds = getDescendantCategoryIds($category->id);
+
+                    foreach ($allDescendantIds as $descendantId) {
+                        $query->orWhere('catalog_categories.id', $descendantId);
                     }
                 }
             })
@@ -56,14 +77,14 @@ class ProductController extends FrontendBaseController
         $products_price = Product::query()
             ->where('active', 1)
             ->whereHas('categories', function ($query) use ($categories, $category_current) {
-                $query->where('catalog_categories.id', $category_current->id);
                 foreach ($categories as $category) {
                     $query->orWhere('catalog_categories.id', $category->id);
-                    $subcategories = Category::where('category_id', $category->id)
-                        ->where('active', 1)
-                        ->pluck('id');
-                    foreach ($subcategories as $subcategory) {
-                        $query->orWhere('catalog_categories.id', $subcategory);
+
+                    // Get all descendant category IDs up to 4 levels
+                    $allDescendantIds = getDescendantCategoryIds($category->id);
+
+                    foreach ($allDescendantIds as $descendantId) {
+                        $query->orWhere('catalog_categories.id', $descendantId);
                     }
                 }
             });
@@ -147,6 +168,8 @@ class ProductController extends FrontendBaseController
             'products_maxprice' => $products_maxprice,
         ]);
     }
+
+
 
 
 

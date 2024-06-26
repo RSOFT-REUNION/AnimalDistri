@@ -307,6 +307,15 @@ a.nav-link.active {
     top: 45%;
     transform: rotate(-45deg);
 }
+.nav-pills .nav-link {
+    background-color: #f8f9fa;
+    color: #000000;
+}
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #FFFFFF;
+    background-color: #3399cc;
+}
+
 
 /*** Bug FlexSlider ***/
 .flex-direction-nav a {

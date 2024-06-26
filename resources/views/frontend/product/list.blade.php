@@ -9,16 +9,20 @@
             <ol class="breadcrumb breadcrumb-nav mt-5 p-3 custom-breadcrumb">
                 <li class="breadcrumb-item"><a class="link-dark" href="{{ route('index') }}"><i class="fa-solid fa-home"></i></a></li>
                 <li class="breadcrumb-item"><a class="link-dark" href="{{ route('product.first_category_list') }}">Nos Produits</a></li>
-                @if(@getCategoryParentInfo($category_curent->category_id))
-                    @if(@getCategoryParentInfo(getCategoryParentInfo($category_curent->category_id)->category_id) != null)
-                        <li class="breadcrumb-item"><a class="link-dark" href="/nos-produits/{{ getCategoryParentInfo(getCategoryParentInfo($category_curent->category_id)->category_id)->slug }}">{{ getCategoryParentInfo(getCategoryParentInfo($category_curent->category_id)->category_id)->name }}</a></li>
+                @if($parentCategory = getCategoryParentInfo($category_curent->category_id))
+                    @if($grandParentCategory = getCategoryParentInfo($parentCategory->category_id))
+                        @if($greatGrandParentCategory = getCategoryParentInfo($grandParentCategory->category_id))
+                            <li class="breadcrumb-item"><a class="link-dark" href="/nos-produits/{{ $greatGrandParentCategory->slug }}">{{ $greatGrandParentCategory->name }}</a></li>
+                        @endif
+                        <li class="breadcrumb-item"><a class="link-dark" href="/nos-produits/{{ $grandParentCategory->slug }}">{{ $grandParentCategory->name }}</a></li>
                     @endif
-                    <li class="breadcrumb-item"><a class="link-dark" href="/nos-produits/{{ getCategoryParentInfo($category_curent->category_id)->slug }}">{{ getCategoryParentInfo($category_curent->category_id)->name }}</a></li>
+                    <li class="breadcrumb-item"><a class="link-dark" href="/nos-produits/{{ $parentCategory->slug }}">{{ $parentCategory->name }}</a></li>
                 @endif
                 <li class="breadcrumb-item active link-dark" aria-current="page">{{ $category_curent->name }}</li>
             </ol>
         </nav>
     </div>
+
 
     @if(count($products) > 0)
         <!--- List des produits --->
