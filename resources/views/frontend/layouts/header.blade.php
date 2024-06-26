@@ -137,6 +137,82 @@
                                 <li class="nav-item"><a href="/nos-produits/{{ $category->slug }}" class="nav-link p-4">{{ $category->name }}</a></li>
                             @endif
                         @endforeach
+
+                        <li class="nav-item dropdown dropdown-mega position-static">
+                            <a class="nav-link dropdown-toggle p-4" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">Test</a>
+                            <div class="dropdown-menu shadow">
+                                <div class="mega-content px-4 ">
+                                    <div class="container-fluid">
+
+                                    <style>
+                                        .nav-pills .nav-link {
+                                            background-color: #f8f9fa;
+                                            color: #000000;
+                                        }
+                                        .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+                                            color: #FFFFFF;
+                                            background-color: #3399cc;
+                                        }
+                                    </style>
+
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <ul class="nav flex-column nav-pills nav-pills-custom" id="myTab" role="tablist">
+                                                    <li class="nav-item" role="presentation">
+                                                        <button class="nav-link active w-100 p-4 mb-2" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Aliment</button>
+                                                    </li>
+                                                    <li class="nav-item" role="presentation">
+                                                        <button class="nav-link w-100 p-4 mb-2" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Hygiène</button>
+                                                    </li>
+                                                    <li class="nav-item" role="presentation">
+                                                        <button class="nav-link  w-100 p-4 mb-2" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Matériel</button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <div class="tab-content" id="myTabContent">
+                                                    <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                                                        <div class="row">
+                                                            <div class="col-3">
+                                                                <h4 class="mb-3"><a class="link-dark" href="#">Compléments</a></h4>
+                                                                <a class="link-dark ps-3" href="#"><i class="fa-solid fa-arrow-turn-down-right"></i> Vitamines</a><br>
+                                                                <a class="link-dark ps-3" href="#"><i class="fa-solid fa-arrow-turn-down-right"></i> Huiles</a><br>
+                                                            </div>
+                                                            <div class="col-3">
+                                                                <h4 class="mb-3"><a class="link-dark" href="#">Croquettes</a></h4>
+                                                                <a class="link-dark ps-3" href="#"><i class="fa-solid fa-arrow-turn-down-right"></i> Chiot</a><br>
+                                                                <a class="link-dark ps-3" href="#"><i class="fa-solid fa-arrow-turn-down-right"></i> Adulte</a><br>
+                                                                <a class="link-dark ps-3" href="#"><i class="fa-solid fa-arrow-turn-down-right"></i> Senior</a><br>
+                                                                <a class="link-dark ps-3" href="#"><i class="fa-solid fa-arrow-turn-down-right"></i> Diet</a><br>
+                                                            </div>
+                                                            <div class="col-3">
+                                                                <h4 class="mb-3"><a class="link-dark" href="#">Humide</a></h4>
+                                                                <a class="link-dark ps-3" href="#"><i class="fa-solid fa-arrow-turn-down-right"></i> Diet</a><br>
+                                                            </div>
+                                                            <div class="col-3">
+                                                                <h4 class="mb-3"><a class="link-dark" href="#">Snacks</a></h4>
+                                                                <a class="link-dark ps-3" href="#"><i class="fa-solid fa-arrow-turn-down-right"></i> Biscuits</a><br>
+                                                                <a class="link-dark ps-3" href="#"><i class="fa-solid fa-arrow-turn-down-right"></i> Sticks</a><br>
+                                                                <a class="link-dark ps-3" href="#"><i class="fa-solid fa-arrow-turn-down-right"></i> Filets</a><br>
+                                                                <a class="link-dark ps-3" href="#"><i class="fa-solid fa-arrow-turn-down-right"></i> Friandises</a><br>
+                                                                <a class="link-dark ps-3" href="#"><i class="fa-solid fa-arrow-turn-down-right"></i> Os à macher</a><br>
+                                                                <a class="link-dark ps-3" href="#"><i class="fa-solid fa-arrow-turn-down-right"></i> Education</a><br>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">...</div>
+                                                    <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">...</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
                 </ul>
                 <ul class="nav">
                     <li class="nav-item"><a href="#" class="nav-link p-4">Promos / Bon plans</a></li>
@@ -145,4 +221,3 @@
         </div>
     </div>
 </nav>
-
