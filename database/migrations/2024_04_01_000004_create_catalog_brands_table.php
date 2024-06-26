@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->timestamps();
         });
         Schema::table('catalog_products', function (Blueprint $table) {
-            $table->foreignIdFor(\App\Models\Catalog\Brand::class)->after('name')->constrained('catalog_brands');
+            $table->foreignIdFor(\App\Models\Catalog\Brand::class)->nullable()->after('name')->constrained('catalog_brands');
         });
 
 
