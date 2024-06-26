@@ -1,13 +1,13 @@
 <!-- Double Header -->
-<header class="bg-light text-white py-2">
+<header class="bg-light bg-opacity-75 text-white py-2">
     <div class="container">
-        <div class="d-flex justify-content-between align-items-center">
-            <a href="{{ route('index') }}" class="text-center">
+        <div class="d-flex align-items-center">
+            <a href="{{ route('index') }}" class="text-start">
                 <img class="logo hvr-wobble-to-top-right" src="{{ asset('/frontend/images/logo/logo.png') }}"
                      alt="logo">
             </a>
 
-            <form role="search" method="get" action="{{ route('search') }}" class="w-25 d-none d-lg-block">
+            <form role="search" method="get" action="{{ route('search') }}" class="w-25 d-none d-lg-block mx-4">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Rechercher un produit..."
                            aria-label="Rechercher" aria-describedby="Rechercher">
@@ -16,52 +16,56 @@
                 </div>
             </form>
 
-            <div class="d-none d-lg-block">
-                <div class="d-flex flex-row mb-3">
-                    <div>
-                        @if(Route::currentRouteName() == 'cart.chose_address' || Route::currentRouteName() == 'cart.chose_delivery' || Route::currentRouteName() == 'cart.summary')
-                            <button class="btn hvr-bob me-3 btn-cart" type="button">
-                                <i class="fa-solid fa-basket-shopping"></i>
-                                <span
-                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><span
-                                        id="nb_produit">{{ \App\Http\Controllers\Frontend\ShoppingCart\CartController::count_product() }}</span> <span
-                                        class="visually-hidden">Nombres de produits dans le panier</span></span>
-                            </button>
-                        @else
-                            <button class="btn hvr-bob me-3 btn-cart" type="button" data-bs-toggle="offcanvas"
-                                    data-bs-target="#cart_modal" aria-controls="cart_modal">
-                                <i class="fa-solid fa-basket-shopping fa-xl"></i>
-                                <span
-                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><span
-                                        id="nb_produit">{{ \App\Http\Controllers\Frontend\ShoppingCart\CartController::count_product() }}</span> <span
-                                        class="visually-hidden">Nombres de produits dans le panier</span></span>
-                            </button>
-                            @include('frontend.layouts.partials.cart_modal')
-                        @endif
-                    </div>
-                    <div>
+            <a href="" class="ms-auto btn link-white bg-dark bg-opacity-75 rounded-3 p-2 mx-2">
+                Magasine & Blog
+            </a>
+
+            <a href="" class="btn link-white bg-dark bg-opacity-75 rounded-3 p-2 mx-2">
+                Nos marque
+            </a>
+
+            <div>
+                @if(Route::currentRouteName() == 'cart.chose_address' || Route::currentRouteName() == 'cart.chose_delivery' || Route::currentRouteName() == 'cart.summary')
+                    <button class="btn me-3 btn-cart bg-dark bg-opacity-75 rounded-3 position-relative hvr-grow-shadow" type="button">
+                        <i class="fa-solid fa-basket-shopping fa-xl text-white"></i>
+                        <span
+                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><span
+                                id="nb_produit">{{ \App\Http\Controllers\Frontend\ShoppingCart\CartController::count_product() }}</span> <span
+                                class="visually-hidden">Nombres de produits dans le panier</span></span>
+                    </button>
+                @else
+                    <button class="btn p-2  me-3 btn-cart bg-dark bg-opacity-75 rounded-3 position-relative hvr-grow-shadow" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#cart_modal" aria-controls="cart_modal">
+                        <i class="fa-solid fa-basket-shopping fa-xl text-white"></i>
+                        <span
+                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><span
+                                id="nb_produit">{{ \App\Http\Controllers\Frontend\ShoppingCart\CartController::count_product() }}</span> <span
+                                class="visually-hidden">Nombres de produits dans le panier</span></span>
+                    </button>
+                    @include('frontend.layouts.partials.cart_modal')
+                @endif
+            </div>
+            <div>
                         @if(Auth::guest())
-                            <a class="btn btn-primary hvr-bob" aria-current="page" href="{{ route('dashboard') }}"> <i
+                            <a class="btn btn-primary link-effect p-2 " aria-current="page" href="{{ route('dashboard') }}"> <i
                                     class="fa-solid fa-user fa-fw"></i> Mon compte</a>
                         @endif
                         @if(Auth::user())
                             <form method="POST" action="{{ route('logout') }}"> @csrf
-                                <button type="submit" class="btn hvr-bob btn-logout" data-bs-toggle="tooltip"
+                                <a class="btn btn-primary link-effect p-2 " aria-current="page" href="{{ route('dashboard') }}">
+                                    <i class="fa-solid fa-user fa-fw"></i> Mon compte</a>
+                                <button type="submit" class="btn btn-logout p-2 bg-dark bg-opacity-75 rounded-3 text-white" data-bs-toggle="tooltip"
                                         data-bs-custom-class="custom-tooltip"
                                         data-bs-placement="bottom" data-bs-title="{{ __('Log Out') }}"><i
                                         class="fa-solid fa-right-from-bracket fa-xl"></i></button>
-                                <a class="btn btn-primary hvr-bob" aria-current="page" href="{{ route('dashboard') }}">
-                                    <i class="fa-solid fa-user fa-fw"></i> Mon compte</a>
+
                             </form>
                         @endif
                     </div>
-                </div>
-
-            </div>
         </div>
     </div>
 </header>
-<nav class="navbar navbar-expand-lg shadow-lg bg-primary p-0" aria-label="Navbar">
+<nav class="navbar navbar-expand-lg shadow-lg bg-primary-trans p-0" aria-label="Navbar">
     <div class="container">
         <p class="navbar-brand"></p>
         <button class="navbar-toggler p-3 text-white" type="button" data-bs-toggle="offcanvas"
@@ -81,10 +85,10 @@
                     @foreach($menu_produits as $category)
                         @if((count($category->childrenCategories) > 0))
                             <li class="nav-item dropdown dropdown-mega position-static">
-                                <a class="nav-link dropdown-toggle p-4" href="#" data-bs-toggle="dropdown"
+                                <a class="nav-link dropdown-toggle p-3" href="#" data-bs-toggle="dropdown"
                                    data-bs-auto-close="outside">{{ $category->name }}</a>
                                 <div class="dropdown-menu shadow">
-                                    <div class="mega-content px-4 ">
+                                    <div class="mega-content px-4">
                                         <div class="container-fluid">
                                             <div class="row">
                                                 <div class="col-md-3">
@@ -139,13 +143,13 @@
                             </li>
                         @else
                             <li class="nav-item"><a href="/nos-produits/{{ $category->slug }}"
-                                                    class="nav-link p-4">{{ $category->name }}</a></li>
+                                                    class="nav-link p-3">{{ $category->name }}</a></li>
                         @endif
                     @endforeach
 
                 </ul>
                 <ul class="nav">
-                    <li class="nav-item"><a href="#" class="nav-link p-4">Promos / Bon plans</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link p-3">Promos / Bon plans</a></li>
                 </ul>
             </div>
         </div>

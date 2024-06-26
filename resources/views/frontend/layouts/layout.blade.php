@@ -14,13 +14,13 @@
 </head>
 
 <body>
-@include('frontend.layouts.header')
+    <div class="fixed-top">
+        @include('frontend.layouts.header')
+    </div>
 
-@if(Route::is('index'))
-    <div style="margin-top: -16px;">
+    <div class="position-static top-0">
         @include('frontend.layouts.slider')
     </div>
-@endif
 
 <main id="main">
     <div class="container">

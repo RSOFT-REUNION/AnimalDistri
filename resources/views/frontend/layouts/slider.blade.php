@@ -1,16 +1,16 @@
-<div id="carousel" class="carousel slide mt-3 mb-4" data-bs-ride="carousel" data-aos="zoom-in"  data-aos-duration="600">
+<div id="carousel" class="carousel slide mb-4" data-bs-ride="carousel" data-aos="zoom-in"  data-aos-duration="600">
     <div class="carousel-inner">
         @php $len = count($sliders); @endphp
         @foreach($sliders as $index => $slide)
             <div class="carousel-item @if($index == 0) active @endif">
-                <img src="/storage/upload/content/carousel/{{ $slide->image }}" class="d-block w-100" alt="{{ $slide->name }}">
-                @if($slide->description)
+                <img src="{{ getImageUrl('/upload/content/carousel/'.$slide->image, 1920, 600, 'crop') }}" alt="{{ $slide->name }}">
+                {{--@if($slide->description)
                     <div class="carousel-caption d-none d-md-block" >
                         <div class="card bg-primary p-5 shadow-xl">
                             <p>{{ $slide->description }}</p>
                         </div>
                     </div>
-                @endif
+                @endif--}}
             </div>
         @endforeach
     </div>
