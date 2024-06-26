@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\Catalog\ProductController;
 use App\Http\Controllers\Backend\Catalog\CategoryController;
-use App\Http\Controllers\Backend\Catalog\BrandsController;
+use App\Http\Controllers\Backend\Catalog\BrandController;
 use App\Http\Controllers\Backend\Catalog\ShopsController;
 use App\Http\Controllers\Backend\Catalog\DiscountController;
 
@@ -25,7 +25,7 @@ Route::prefix('admin/catalogue')->name('backend.catalog.')->middleware('auth:adm
         Route::post('categories/order', [CategoryController::class, 'updateOrder'])->name('categories.order');
     });
     Route::group(['middleware' => ['permission:catalog.brands.create|catalog.brands.update|catalog.brands.delete']], function () {
-        Route::resource('brands', BrandsController::class)->except(['show']);
+        Route::resource('brands', BrandController::class)->except(['show']);
     });
     Route::group(['middleware' => ['permission:catalog.shops.create|catalog.shops.update|catalog.shops.delete']], function () {
         Route::resource('shops', ShopsController::class)->except(['show']);

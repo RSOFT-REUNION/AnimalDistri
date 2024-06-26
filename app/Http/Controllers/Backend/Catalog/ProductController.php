@@ -7,6 +7,7 @@ use App\Imports\CatalogProductImport;
 use App\Models\Catalog\ProductsImages;
 use Illuminate\Http\Request;
 use App\Models\Catalog\Category;
+use App\Models\Catalog\Brand;
 use App\Models\Catalog\Product;
 use Illuminate\Support\Facades\Storage;
 
@@ -22,6 +23,7 @@ class ProductController extends Controller
     {
         return view('backend.catalog.product.index', [
             'products' => Product::orderBy('id','DESC')->get(),
+            'brands_list' => Brand::orderBy('name')->get(),
             'categories_list' => Category::with(['childrenCategories' => function ($q) {
                 $q->orderBy('name');
             }])->get(),
@@ -69,6 +71,7 @@ class ProductController extends Controller
         return view('backend.catalog.product.edit', [
             'product' => $product,
             'product_categories' => $product->categories()->pluck('id')->all(),
+            'brands_list' => Brand::orderBy('name')->get(),
             'categories_list' => Category::with(['childrenCategories' => function ($q) {
                 $q->orderBy('name');
             }])->get(),

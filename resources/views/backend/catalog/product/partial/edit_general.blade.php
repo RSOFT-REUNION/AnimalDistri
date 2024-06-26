@@ -7,22 +7,13 @@
 
         {{-- NOM DU PRODUIT --}}
         <div class="form-group">
-            <div class="form-group col">
+            <div class="form-group">
                 <label class="form-control-label" for="name">Nom du produit <span class="small text-danger">*</span></label>
                 <input type="text" id="name" name="name"
                        class="@error('name') is-invalid @enderror form-control" required
                        value="{{ old('name', $product->name) }}">
                 <div id="price_ttc" class="form-text text-truncate w-75">   Lien du produit : <a target="_blank" href="{{ route('product.show', $product->slug) }}">{{ route('product.show', $product->slug) }}</a></div>
                 @error('name')
-                <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-            <div class="form-group col">
-                <label class="form-control-label" for="code_article">Code Article</label>
-                <input type="text" id="code_article" name="code_article"
-                       class="@error('code_article') is-invalid @enderror form-control"
-                       value="{{ old('code_article', $product->code_article) }}">
-                @error('code_article')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
@@ -49,7 +40,7 @@
                 <select class="form-select tomselectmultiplecategories @error('product_categories') is-invalid @enderror" multiple
                         aria-label="product_categories"
                         id="product_categories[]" name="product_categories[]">
-                    <option value="" selected > Aucune catégorie</option>
+                    <option value="" selected > Aucune categorie</option>
                     @foreach($categories_list as $category_list)
                         @if($category_list->category_id == null)
                             <option {{ in_array($category_list->id, $product_categories ?? []) ? 'selected' : '' }}
@@ -63,9 +54,16 @@
                                     @if($childrenCategories->id != $childrenChildrenCategories->id)
                                         <option {{ in_array($childrenChildrenCategories->id, $product_categories ?? []) ? 'selected' : '' }}
                                                 {{ in_array($childrenChildrenCategories->id, old('product_categories') ?? []) ? 'selected' : '' }}
-                                                value="{{ $childrenChildrenCategories->id }}">{{ $category_list->name }} -> {{ $childrenCategories->name }} -> {{ $childrenChildrenCategories->name }}</option>                                                    @endif
+                                                value="{{ $childrenChildrenCategories->id }}">{{ $category_list->name }} -> {{ $childrenCategories->name }} -> {{ $childrenChildrenCategories->name }}</option>
+                                        @foreach($childrenChildrenCategories->childrenCategories as $fourthLevelCategory)
+                                            @if($childrenChildrenCategories->id != $fourthLevelCategory->id)
+                                                <option {{ in_array($fourthLevelCategory->id, $product_categories ?? []) ? 'selected' : '' }}
+                                                        {{ in_array($fourthLevelCategory->id, old('product_categories') ?? []) ? 'selected' : '' }}
+                                                        value="{{ $fourthLevelCategory->id }}">{{ $category_list->name }} -> {{ $childrenCategories->name }} -> {{ $childrenChildrenCategories->name }} -> {{ $fourthLevelCategory->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    @endif
                                 @endforeach
-
                             @endforeach
                         @endif
                     @endforeach
@@ -75,16 +73,18 @@
                 @enderror
             </div>
 
+
+
             {{-- MARQUE --}}
             <div class="col">
                 <label class="form-control-label" for="brand_id">Marque </label>
-                <select class="form-select tomselect2 @error('brand_id') is-invalid @enderror"
+                <select class="form-select tomselect @error('brand_id') is-invalid @enderror"
                         id="brand_id"
                         name="brand_id">
                     <option value=""> Aucune marque </option>
-                    {{-- @foreach($brands as $brand)
-                         <option @if($product->brand_id == $brand->id) selected @endif value="{{ $brand->id }}"> {{ $brand->name }}</option>
-                     @endforeach--}}
+                    @foreach($brands_list as $brand)
+                         <option @if( old('brand_id', $product->brand_id) == $brand->id) selected @endif value="{{ $brand->id }}"> {{ $brand->name }}</option>
+                     @endforeach
                 </select>
                 @error('brand_id')
                 <div class="invalid-feedback">{{ $message }}</div>
@@ -97,7 +97,6 @@
             <label class="form-control-label" for="short_description">Description courte <span class="small text-body-secondary">(facultatif)</span></label>
             <textarea id="short_description" name="short_description" rows="2"
                       class="@error('short_description') is-invalid @enderror form-control">{{ old('short_description', $product->short_description) }}</textarea>
-
             @error('short_description')
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror
@@ -107,20 +106,3 @@
     </div>
 </div>
 
-{{-- scripts --}}
-<script src="{{ asset('backend/vendor/jquery/jquery.min.js') }}"></script>
-<script type="text/javascript">
-
-    // PREVIEW IMAGE
-    $(document).ready(function (e) {
-        $('#images').change(function(){
-            let reader = new FileReader();
-            reader.onload = (e) => {
-                $('#preview-image-before-upload').attr('src', e.target.result);
-            }
-            reader.readAsDataURL(this.files[0]);
-            $('#p').hide();
-        });
-
-    });
-</script>

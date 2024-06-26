@@ -3,10 +3,20 @@
         <h6 class="m-0 font-weight-bold text-secondary">Complémentaires (Spécifiques selon le client)</h6>
     </div>
     <div class="card-body">
+
+        <div class="form-group">
+            <label class="form-control-label" for="code_article">Code Article</label>
+            <input type="text" id="code_article" name="code_article"
+                   class="@error('code_article') is-invalid @enderror form-control"
+                   value="{{ old('code_article', $product->code_article) }}">
+            @error('code_article')
+            <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
         <div class="form-group">
             <label class="form-control-label" for="composition">Composition (ingrédients, allergènes etc.) </label>
             <textarea name="composition" id="composition" class="@error('composition') is-invalid @enderror form-control">{{ old('composition', $product->composition) }}</textarea>
-            <div id="composition" class="form-text">Indiquez ici les matériaux, la provenance des ingrédients, les allergènes. </div>
+            <div id="composition" class="form-text">Indiquez ici les matériaux, la provenance des ingrédients, les allergènes.</div>
             @error('composition')
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror

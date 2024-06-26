@@ -8,8 +8,16 @@
 
             @can('catalog.brands.create')
                 <div class="d-flex gap-2 justify-content-end mb-3 me-5">
-                    <a href="{{ route('backend.catalog.brands.create') }}" class="btn btn-success hvr-float-shadow"><i class="fa-solid fa-plus"></i> Ajouter une marque</a>
+                    <button
+                        hx-target="#modal-create"
+                        hx-trigger="click"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modal-create"
+                        class="btn btn-success hvr-float-shadow"><i class="fa-solid fa-plus">
+                        </i> Ajouter une marque
+                    </button>
                 </div>
+                @include('backend.catalog.brand.create')
             @endcan
 
             <div class="card border-left-primary shadow mb-4">
@@ -23,9 +31,12 @@
                             <thead>
                             <tr>
                                 <th scope="col" class="text-center" style="width: 5%;">#</th>
+                                <th scope="col" class="text-center">Logo</th>
                                 <th scope="col" class="text-center">Nom</th>
-                                <th scope="col" class="text-center">Description</th>
-                                <th scope="col" class="text-center" style="width: 15%;"><i
+                                <th scope="col" class="text-center" style="max-width: 350px;">Description</th>
+                                <th scope="col" class="text-center" width="5%">Produits</th>
+                                <th scope="col" class="text-center" width="5%">Activé</th>
+                                <th scope="col" class="text-center" style="width: 8%;"><i
                                         class="fa-duotone fa-arrows-minimize"></i></th>
                             </tr>
                             </thead>
@@ -33,8 +44,15 @@
                             @foreach ($brands as $brand)
                                 <tr>
                                     <td class="text-center">{{ $brand->id }}</td>
-                                    <td>{{ $brand->name }}</td>
-                                    <td>{{ $brand->description }}</td>
+                                    <td class="text-center align-middle">
+                                        @if($brand->image != null)
+                                            <img src="{{ getImageUrl('/upload/catalog/brands/'.$brand->image, 50, 50) }}" alt="{{ $brand->name }}">
+                                        @endif
+                                    </td>
+                                    <td class="text-center align-middle">{{ $brand->name }}</td>
+                                    <td class="text-center text-wrap" style="max-width: 350px;">{{ $brand->short_description ?? 'Aucune description' }}</td>
+                                    <td  class="text-center align-middle">{{  count($brand->products->where('active', 1)) }}</td>
+                                    <td  class="text-center align-middle">{{ getActive($brand->active) }}</td>
                                     <td class="text-center">
                                         @can('catalog.brands.update')
                                             <a href="{{ route('backend.catalog.brands.edit', $brand->id) }}"

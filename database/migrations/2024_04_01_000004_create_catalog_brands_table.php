@@ -12,16 +12,16 @@ return new class extends Migration {
         Schema::create('catalog_brands', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->string('slug')->nullable()->unique();
+            $table->string('slug')->unique();
             $table->string('image')->nullable();
-            $table->string('description')->nullable();
+            $table->string('short_description')->nullable();
             $table->boolean('active')->default(1);
             $table->softDeletes();
             $table->timestamps();
         });
-/*        Schema::table('catalog_products', function (Blueprint $table) {
+        Schema::table('catalog_products', function (Blueprint $table) {
             $table->foreignIdFor(\App\Models\Catalog\Brand::class)->after('name')->constrained('catalog_brands');
-        });*/
+        });
 
 
         /*** Ajout des permision **/
