@@ -2,7 +2,7 @@
      hx-trigger="loadProducts from:body">
 
     <div class="htmx-indicator position-absolute top-50 start-50 translate-middle" role="status" aria-hidden="true">
-        <span class="spinner-border text-danger" style="width: 5rem; height: 5rem;"></span>
+        <span class="spinner-border text-primary" style="width: 5rem; height: 5rem;"></span>
     </div>
 
     <div class="htmx-style">

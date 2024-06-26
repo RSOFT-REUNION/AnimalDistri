@@ -80,6 +80,31 @@ window.setTimeout(function () {
  */
 AOS.init();
 
+/**
+ * Product Slider
+ */
+$(document).ready(function(){
+    $('#carousel').flexslider({
+        animation: "slide",
+        controlNav: false,
+        animationLoop: false,
+        slideshow: false,
+        itemWidth: 100,
+        itemMargin: 5,
+        asNavFor: '#slider'
+    });
+    $('#slider').flexslider({
+        animation: "slide",
+        controlNav: false,
+        animationLoop: false,
+        slideshow: false,
+        sync: "#carousel",
+        start: function(slider){
+            $('body').removeClass('loading');
+        }
+    });
+});
+
 /*** Enable tooltips ***/
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))

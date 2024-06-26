@@ -11,4 +11,6 @@
     <link href="{{ asset('vendor/animation/aos.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/animation/animate.min.css') }}" rel="stylesheet">
 
+    <link href="{{ asset('vendor/flexslider/css/flexslider.css') }}" rel="stylesheet">
+
     <link href="{{ asset('frontend/css/custom.css') }}" rel="stylesheet">

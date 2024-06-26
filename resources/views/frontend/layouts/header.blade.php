@@ -117,10 +117,10 @@
                                                             @if((count($childrenCategories->childrenCategories) > 0))
                                                                     @foreach($childrenCategories->childrenCategories as $childrenCategories)
                                                                     <div class="card mb-3 ps-2 bg-light shadow-sm">
-                                                                        <a class="link-dark mb-2" href="/nos-produits{{ $childrenCategories->slug }}">{{ $childrenCategories->name }}</a>
+                                                                        <a class="link-dark mb-2" href="/nos-produits/{{ $childrenCategories->slug }}">{{ $childrenCategories->name }}</a>
                                                                         @if((count($childrenCategories->childrenCategories) > 0))
                                                                                 @foreach($childrenCategories->childrenCategories as $childrenCategories)
-                                                                                    <a class="link-dark ps-3" href="/nos-produits{{ $childrenCategories->slug }}"><i class="fa-solid fa-arrow-turn-down-right"></i> {{ $childrenCategories->name }}</a>
+                                                                                    <a class="link-dark ps-3" href="/nos-produits/{{ $childrenCategories->slug }}"><i class="fa-solid fa-arrow-turn-down-right"></i> {{ $childrenCategories->name }}</a>
                                                                                 @endforeach
                                                                         @endif
                                                                     </div>

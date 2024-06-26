@@ -4,18 +4,22 @@
 
 @section('main-content')
 
-    <div style="margin-top: 60px;" class="mb-5">
-        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-            <ol class="breadcrumb breadcrumb-nav mt-5 p-3 rounded-3 shadow">
-                <li class="breadcrumb-item"><a href="{{ route('index') }}"><i class="fa-solid fa-home"></i></a></li>
-                <li class="breadcrumb-item active text-white" aria-current="page">Nos Produits</li>
+    <div style="margin-top: -15px;" class="mb-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-nav mt-5 p-3">
+                <li class="breadcrumb-item">
+                    <a class="link-dark" href="{{ route('index') }}">
+                        <i class="fa-solid fa-home"></i>
+                    </a>
+                </li>
+                <li class="breadcrumb-item active link-dark" aria-current="page">Nos Produit</li>
             </ol>
         </nav>
+
     </div>
 
     <div class="text-center">
         <h1 class="mb-3">Nos produits</h1>
-        <h3 class="mb-5">Des choix de grande qualité</h3>
     </div>
 
     <div class="container_slider">
