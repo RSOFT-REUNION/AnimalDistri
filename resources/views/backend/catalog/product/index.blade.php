@@ -57,7 +57,7 @@
                                 <th scope="col" class="text-center" style="width: 5%;">#</th>
                                 <th scope="col" class="text-center">Image</th>
                                 <th scope="col" class="text-center">Nom</th>
-                                <th scope="col" class="text-center">Catégorie</th>
+                                <th scope="col" class="text-center">Catégories</th>
                                 <th scope="col" class="text-center">Marque</th>
                                 <th scope="col" class="text-center">Prix HT</th>
                                 <th scope="col" class="text-center">TVA</th>
@@ -77,7 +77,13 @@
                                     </td>
                                     <td class="text-center align-middle" ><div class="d-inline-block text-wrap" style="max-width: 350px;">{{ $product->name }}</div>
                                         <br> <div class="d-inline-block text-truncate fw-lighter fst-italic" style="max-width: 300px;">Lien du produit : <a target="_blank" href="{{ route('product.show', $product->slug) }}"><span class="" >{{ route('product.show', $product->slug) }}</span></a></div> </td>
-                                    <td class="text-center align-middle">{{ $product->category->name ?? 'Aucune catégorie' }}</td>
+                                    <td class="text-center align-middle">
+                                        @forelse ($product->categories as $category)
+                                            <span>{{ $category->name }}</span><br>
+                                        @empty
+                                            <div>Aucune catégorie</div>
+                                        @endforelse
+                                    </td>
                                     <td class="text-center align-middle">{{ $product->brand->name ?? 'Aucune marque' }}</td>
                                     <td class="text-center align-middle">{{ formatPriceToFloat($product->price_ht) }} €</td>
                                     <td class="text-center align-middle">{{ formatPriceToFloat($product->tva) }} %</td>

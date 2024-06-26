@@ -17,7 +17,7 @@ class Category extends Model
 
     public function products(): BelongsToMany
     {
-        return $this->BelongsToMany (Product::class, 'catalog_product_categories');
+        return $this->BelongsToMany (Product::class, 'catalog_products_categories');
     }
 
     public function childrenCategories(): HasMany {

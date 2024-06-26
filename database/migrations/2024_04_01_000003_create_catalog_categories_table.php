@@ -23,7 +23,7 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        Schema::create('catalog_product_categories', function (Blueprint $table) {
+        Schema::create('catalog_products_categories', function (Blueprint $table) {
             $table->foreignIdFor(\App\Models\Catalog\Product::class)->constrained('catalog_products')->cascadeOnDelete();
             $table->foreignIdFor(\App\Models\Catalog\Category::class)->constrained('catalog_categories')->cascadeOnDelete();
             $table->primary(['product_id', 'category_id']);

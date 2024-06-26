@@ -5,28 +5,25 @@ namespace App\Models\Catalog;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Str;
 
 class Product extends Model
 {
     protected $table = 'catalog_products';
 
-    protected $fillable = ['code_article', 'name', 'slug', 'brands', 'fav_image', 'short_description', 'content', 'composition', 'tags', 'barcode', 'weight_unit', 'weight', 'price_ht','tva','price_ttc','stock', 'stock_unit', 'active', 'created_by_id','updated_by_id', 'deleted_by_id' ];
+    protected $fillable = ['code_article', 'name', 'slug', 'brand_id', 'fav_image', 'short_description', 'content', 'composition', 'tags', 'barcode', 'weight_unit', 'weight', 'price_ht','tva','price_ttc','stock', 'stock_unit', 'active', 'created_by_id','updated_by_id', 'deleted_by_id' ];
 
     public $images_directory = '/upload/catalog/products/';
 
-    public function category () {
-        return $this->belongsTo(Category::class);
-    }
-
     public function categories(): BelongsToMany
     {
-        return $this->BelongsToMany (Category::class, 'catalog_product_categories');
+        return $this->BelongsToMany (Category::class, 'catalog_products_categories');
     }
 
-    public function brands (): HasMany
+    public function brand()
     {
-        return $this->hasMany(Brand::class);
+        return $this->BelongsTo(Brand::class);
     }
 
     public function images(): HasMany

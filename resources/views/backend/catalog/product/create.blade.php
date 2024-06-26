@@ -52,10 +52,11 @@
                             </div>
                         </div>
 
-                        {{-- IMAGES--}}
+                        {{-- IMAGE --}}
                         <div class="col-4">
                             <div class="input-group mb-3">
-                                <label class="input-group-text col justify-content-center hvr-border-fade" style="cursor:pointer; border-radius: 3px;" for="images">
+                                <label class="input-group-text col justify-content-center hvr-border-fade"
+                                style="cursor:pointer; border-radius: 3px;" for="image">
                                     <p class="text-dark" id="p">
                                         <br>
                                         <i class="fa-light fa-image"></i>
@@ -72,11 +73,11 @@
                                     <img id="preview-image-before-upload" src=""
                                          style="max-height: 250px; max-width:200px;">
                                 </label>
-                                <input type="file" id="images" name="images[]"
-                                       class="form-control @error('images') is-invalid @enderror" hidden
-                                       accept=".jpeg, .png, .jpg, .gif, .svg" multiple
-                                       value="{{ old('images') }}">
-                                @error('images')
+                                <input type="file" id="image" name="image"
+                                       class="form-control @error('image') is-invalid @enderror" hidden
+                                       accept=".jpeg, .png, .jpg, .gif, .svg"
+                                       value="{{ old('image') }}">
+                                @error('image')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -115,12 +116,12 @@
                         {{-- MARQUE --}}
                         <div class="col">
                             <label class="form-control-label" for="brand_id">Marque </label>
-                            <select class="form-select tomselect2 @error('brand_id') is-invalid @enderror"
+                            <select class="form-select tomselect @error('brand_id') is-invalid @enderror"
                                     id="brand_id" name="brand_id">
                                 <option value=""> Aucune marque </option>
-                                {{-- @foreach($brands as $brand)
-                                     <option @if($product->brand_id == $brand->id) selected @endif value="{{ $brand->id }}"> {{ $brand->name }}</option>
-                                 @endforeach--}}
+                                @foreach($brands_list as $brand)
+                                     <option @if( old('brand_id') == $brand->id) selected @endif value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                 @endforeach
                             </select>
                             @error('brand_id')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -132,7 +133,7 @@
                     {{-- DESCRIPTION COURTE --}}
                     <div class="form-group">
                         <label class="form-control-label" for="short_description">Description courte <span class="small text-body-secondary">(facultatif)</span></label>
-                        <textarea id="short_description" name="short_description" rows="3"
+                        <textarea id="short_description" name="short_description" rows="2"
                                class="@error('short_description') is-invalid @enderror form-control">{{ old('short_description') }}</textarea>
                         @error('short_description')
                             <div class="invalid-feedback">{{ $message }}</div>
