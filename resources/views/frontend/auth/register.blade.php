@@ -3,17 +3,20 @@
 
 @section('main-content')
 
-    <div style="margin-top: 60px;">
-        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-            <ol class="breadcrumb breadcrumb-nav mt-5 p-3 rounded-3 shadow">
-                <li class="breadcrumb-item"><a href="{{ route('index') }}"><i class="fa-solid fa-home"></i></a></li>
-                <li class="breadcrumb-item active text-white" aria-current="page">{{ __('Register') }}</li>
+    <div style="margin-top: -15px;" class="mb-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-nav mt-5 p-3">
+                <li class="breadcrumb-item">
+                    <a class="link-dark" href="{{ route('index') }}">
+                        <i class="fa-solid fa-home"></i>
+                    </a>
+                </li>
+                <li class="breadcrumb-item active link-dark" aria-current="page">{{ __('Register') }}</li>
             </ol>
         </nav>
     </div>
 
-    <h1 class="text-center mb-5">Bienvenue sur Augur</h1>
-    <p>Créez en quelques minutes votre compte pour profiter pleinement de votre Programme de Fidélité, commander en ligne en Livraison à domicile ou en Click & Collect, et encore plein d'autres fonctionnalités.</p>
+    <h1 class="text-center mb-5">Bienvenue</h1>
 
 
     <div class="row row-flex">

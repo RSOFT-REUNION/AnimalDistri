@@ -15,7 +15,6 @@
                 <li class="breadcrumb-item active link-dark" aria-current="page">Nos Produit</li>
             </ol>
         </nav>
-
     </div>
 
     <div class="text-center">
