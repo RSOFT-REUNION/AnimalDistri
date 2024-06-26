@@ -89,30 +89,38 @@
                         <div class="col">
                             <label class="form-control-label" for="product_categories[]">Catégories </label>
                             <select class="form-select tomselectmultiplecategories @error('product_categories') is-invalid @enderror" multiple
-                            id="product_categories[]" name="product_categories[]">
-                        <option value="">Aucune catégorie</option>
-                        @foreach($categories_list as $category_list)
-                            @if($category_list->category_id == null)
-                                <option {{ in_array($category_list->id, old('product_categories') ?? []) ? 'selected' : '' }}
-                                        value="{{ $category_list->id }}">{{ $category_list->name }}</option>
-                                @foreach($category_list->childrenCategories as $childrenCategories)
-                                    <option {{ in_array($childrenCategories->id, old('product_categories') ?? []) ? 'selected' : '' }}
-                                            value="{{ $childrenCategories->id }}">{{ $category_list->name }} -> {{ $childrenCategories->name }}</option>
-                                    @foreach($childrenCategories->childrenCategories as $childrenChildrenCategories)
-                                        @if($childrenCategories->id != $childrenChildrenCategories->id)
-                                            <option {{ in_array($childrenChildrenCategories->id, old('product_categories') ?? []) ? 'selected' : '' }}
-                                                    value="{{ $childrenChildrenCategories->id }}">{{ $category_list->name }} -> {{ $childrenCategories->name }} -> {{ $childrenChildrenCategories->name }}</option>
-                                        @endif
-                                    @endforeach
+                                    id="product_categories[]" name="product_categories[]">
+                                <option value="">Aucune catégorie</option>
+                                @foreach($categories_list as $category_list)
+                                    @if($category_list->category_id == null)
+                                        <option {{ in_array($category_list->id, old('product_categories') ?? []) ? 'selected' : '' }}
+                                                value="{{ $category_list->id }}">{{ $category_list->name }}</option>
+                                        @foreach($category_list->childrenCategories as $childrenCategories)
+                                            <option {{ in_array($childrenCategories->id, old('product_categories') ?? []) ? 'selected' : '' }}
+                                                    value="{{ $childrenCategories->id }}">{{ $category_list->name }} -> {{ $childrenCategories->name }}</option>
+                                            @foreach($childrenCategories->childrenCategories as $childrenChildrenCategories)
+                                                @if($childrenCategories->id != $childrenChildrenCategories->id)
+                                                    <option {{ in_array($childrenChildrenCategories->id, old('product_categories') ?? []) ? 'selected' : '' }}
+                                                            value="{{ $childrenChildrenCategories->id }}">{{ $category_list->name }} -> {{ $childrenCategories->name }} -> {{ $childrenChildrenCategories->name }}</option>
+                                                    @foreach($childrenChildrenCategories->childrenCategories as $fourthLevelCategory)
+                                                        @if($childrenChildrenCategories->id != $fourthLevelCategory->id)
+                                                            <option {{ in_array($fourthLevelCategory->id, old('product_categories') ?? []) ? 'selected' : '' }}
+                                                                    value="{{ $fourthLevelCategory->id }}">{{ $category_list->name }} -> {{ $childrenCategories->name }} -> {{ $childrenChildrenCategories->name }} -> {{ $fourthLevelCategory->name }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            @endforeach
+                                        @endforeach
+                                    @endif
                                 @endforeach
-                            @endif
-                        @endforeach
-                    </select>
+                            </select>
 
                             @error('product_categories')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+                    </div>
+
                         {{-- MARQUE --}}
                         <div class="col">
                             <label class="form-control-label" for="brand_id">Marque </label>

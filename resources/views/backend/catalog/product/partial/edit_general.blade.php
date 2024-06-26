@@ -54,9 +54,16 @@
                                     @if($childrenCategories->id != $childrenChildrenCategories->id)
                                         <option {{ in_array($childrenChildrenCategories->id, $product_categories ?? []) ? 'selected' : '' }}
                                                 {{ in_array($childrenChildrenCategories->id, old('product_categories') ?? []) ? 'selected' : '' }}
-                                                value="{{ $childrenChildrenCategories->id }}">{{ $category_list->name }} -> {{ $childrenCategories->name }} -> {{ $childrenChildrenCategories->name }}</option>                                                    @endif
+                                                value="{{ $childrenChildrenCategories->id }}">{{ $category_list->name }} -> {{ $childrenCategories->name }} -> {{ $childrenChildrenCategories->name }}</option>
+                                        @foreach($childrenChildrenCategories->childrenCategories as $fourthLevelCategory)
+                                            @if($childrenChildrenCategories->id != $fourthLevelCategory->id)
+                                                <option {{ in_array($fourthLevelCategory->id, $product_categories ?? []) ? 'selected' : '' }}
+                                                        {{ in_array($fourthLevelCategory->id, old('product_categories') ?? []) ? 'selected' : '' }}
+                                                        value="{{ $fourthLevelCategory->id }}">{{ $category_list->name }} -> {{ $childrenCategories->name }} -> {{ $childrenChildrenCategories->name }} -> {{ $fourthLevelCategory->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    @endif
                                 @endforeach
-
                             @endforeach
                         @endif
                     @endforeach
@@ -65,6 +72,8 @@
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
+
+
 
             {{-- MARQUE --}}
             <div class="col">
