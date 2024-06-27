@@ -17,7 +17,7 @@ class CategorySeeder extends Seeder
                     'Antiparasitaire' => ['Répulsifs', 'Insecticides'],
                 ],
                 'Matériel' => [
-                    'Jouet' => ['Ballles', 'Latex', 'Peluches', 'Chiot', 'Cordes', 'Caoutchouc TPR'],
+                    'Jouet' => ['Balles', 'Latex', 'Peluches', 'Chiot', 'Cordes', 'Caoutchouc TPR'],
                     'Brosserie' => [],
                     'Habitat' => ['Corbeilles', 'Transports', 'Coussins', 'Écuelles'],
                     'Sellerie' => ['Colliers', 'Laisses', 'Ensembles', 'Harnais', 'Piquets', 'Muselières'],
