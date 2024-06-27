@@ -183,5 +183,13 @@ document.addEventListener('DOMContentLoaded', function() {
             dropdownMenu.style.display = 'none';
         }, 300); // Matches the animation duration
     });
+
+    const tabButtons = document.querySelectorAll('#myTab .nav-link');
+    tabButtons.forEach(button => {
+        button.addEventListener('mouseover', function () {
+            let tab = new bootstrap.Tab(button);
+            tab.show();
+        });
+    });
 });
 
