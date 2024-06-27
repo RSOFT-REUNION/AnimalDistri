@@ -44,18 +44,18 @@ class CategoryController extends Controller
         $validated = $request->validate([
             'name'      => 'required|min:3|max:255|string',
             'description' => 'nullable|string',
-            'category_id' => 'nullable',
+            'category_id' => 'integer',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'is_menu' => '',
             'active' => '',
         ]);
         @$validated['is_menu'] = $validated['is_menu']=='on' ? 1:0;
         @$validated['active'] = $validated['active']=='on' ? 1:0;
-        if ($validated['category_id']) {
+        if ($validated['category_id'] == 0) {
+            $validated['slug'] = Str::slug($validated['name']);
+        } else {
             $slugParent = Category::where('id', '=', $validated['category_id'])->pluck('slug')->first();
             $validated['slug'] = $slugParent . '/' . Str::slug($validated['name']);
-        } else {
-            $validated['slug'] = Str::slug($validated['name']);
         }
         if(@$validated['image']){
             $imageName = Str::slug($validated['image']->getClientOriginalName(), '.');

@@ -44,11 +44,11 @@
                     <div class="card-body">
 
                         <div class="form-group">
-                            <label class="form-control-label" for="category_id">Categorie</label>
+                            <label class="form-control-label" for="category_id">Catégorie</label>
                             <select class="form-select tomselect @error('categorie') is-invalid @enderror"
                                     aria-label="category_id"
                                     id="category_id" name="category_id">
-                                <option value="NULL" selected > Aucune categorie</option>
+                                <option value="0" selected > Aucune catégorie</option>
                                 @foreach($categories_list as $category_list)
                                     @if(($category_list->category_id == null) && ($category->id != $category_list->id))
                                         <option @if($category_list->id == old('category_id')) selected @endif
