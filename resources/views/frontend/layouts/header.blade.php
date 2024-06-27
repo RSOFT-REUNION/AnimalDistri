@@ -2,7 +2,7 @@
 <header class="bg-light bg-opacity-75 text-white py-2">
     <div class="container">
         <div class="d-flex align-items-center">
-            <a href="{{ route('index') }}" class="text-start">
+            <a href="{{ route('index') }}" class="text-start flex-fill">
                 <img class="logo hvr-wobble-to-top-right" src="{{ asset('/frontend/images/logo/logo.png') }}"
                      alt="logo">
             </a>
@@ -16,12 +16,12 @@
                 </div>
             </form>
 
-            <a href="" class="ms-auto btn link-white bg-dark bg-opacity-75 rounded-3 p-2 mx-2">
+            <a href="" class="ms-auto btn link-white bg-dark bg-opacity-75 rounded-3 p-2 mx-2 d-none d-lg-block">
                 Magasine & Blog
             </a>
 
-            <a href="" class="btn link-white bg-dark bg-opacity-75 rounded-3 p-2 mx-2">
-                Nos marque
+            <a href="" class="btn link-white bg-dark bg-opacity-75 rounded-3 p-2 mx-2 d-none d-lg-block">
+                Nos marques
             </a>
 
             <div>
@@ -72,7 +72,7 @@
                 data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2">
             <i class="fa-solid fa-bars"></i>
         </button>
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar2"
+        <div class="offcanvas offcanvas-end  overflow-auto" tabindex="-1" id="offcanvasNavbar2"
              aria-labelledby="offcanvasNavbar2Label">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="offcanvasNavbar2Label"><img class="img-fluid"
@@ -87,7 +87,7 @@
                             <li class="nav-item dropdown dropdown-mega position-static">
                                 <a class="nav-link dropdown-toggle p-3" href="#" data-bs-toggle="dropdown"
                                    data-bs-auto-close="outside">{{ $category->name }}</a>
-                                <div class="dropdown-menu shadow">
+                                <div class="dropdown-menu shadow bg-opacity-75">
                                     <div class="mega-content px-4">
                                         <div class="container-fluid">
                                             <div class="row">
@@ -119,17 +119,17 @@
                                                                 tabindex="0">
                                                                 <div class="row">
                                                                     @foreach($childrenCategories->childrenCategories as $childrenCategories)
-                                                                        <div class="col-3">
-                                                                            <h4 class="mt-2 mb-3"><a class="link-dark"
-                                                                                                     href="/nos-produits/{{ $childrenCategories->slug }}">{{ $childrenCategories->name }}</a>
-                                                                            </h4>
-                                                                            @foreach($childrenCategories->childrenCategories as $childrenCategories)
-                                                                                <a class="link-dark ps-3"
-                                                                                   href="/nos-produits/{{ $childrenCategories->slug }}"><i
-                                                                                        class="fa-solid fa-arrow-turn-down-right"></i> {{ $childrenCategories->name }}
-                                                                                </a><br>
-                                                                            @endforeach
-                                                                        </div>
+                                                                            <div class="col-12 col-md-12 col-lg-2 col-xl-2">
+                                                                                <h4 class="mt-2 mb-3"><a class="link-dark"
+                                                                                                         href="/nos-produits/{{ $childrenCategories->slug }}">{{ $childrenCategories->name }}</a>
+                                                                                </h4>
+                                                                                @foreach($childrenCategories->childrenCategories as $childrenCategories)
+                                                                                    <a class="link-dark ps-3"
+                                                                                       href="/nos-produits/{{ $childrenCategories->slug }}">
+                                                                                        <i class="fa-solid fa-arrow-right"></i> {{ $childrenCategories->name }}
+                                                                                    </a><br>
+                                                                                @endforeach
+                                                                            </div>
                                                                     @endforeach
                                                                 </div>
                                                             </div>
