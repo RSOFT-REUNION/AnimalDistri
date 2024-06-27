@@ -127,7 +127,7 @@ class ProductController extends Controller
 
         $product->update($validatedData);
         @$product->categories()->sync($validatedData['product_categories']);
-        return back()->withSuccess('Produit modifié avec succès');
+        return redirect()->route('backend.catalog.products.edit', $product->id )->withSuccess('Produit modifié avec succès');
     }
 
     /**

@@ -49,7 +49,7 @@
                 <select class="form-select tomselectmultiplecategories @error('product_categories') is-invalid @enderror" multiple
                         aria-label="product_categories"
                         id="product_categories[]" name="product_categories[]">
-                    <option value="" selected > Aucune categorie</option>
+                    <option value="" selected>Aucune catégorie</option>
                     @foreach($categories_list as $category_list)
                         @if($category_list->category_id == null)
                             <option {{ in_array($category_list->id, $product_categories ?? []) ? 'selected' : '' }}

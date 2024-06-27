@@ -89,9 +89,9 @@
                             <label class="form-control-label" for="product_categories[]">Catégories </label>
                             <select class="form-select tomselectmultiplecategories @error('product_categories') is-invalid @enderror" multiple
                                     id="product_categories[]" name="product_categories[]">
-                                <option value="0">Aucune catégorie</option>
+                                <option value="">Aucune catégorie</option>
                                 @foreach($categories_list as $category_list)
-                                    @if($category_list->category_id == 0)
+                                    @if($category_list->category_id == null)
                                         <option {{ in_array($category_list->id, old('product_categories') ?? []) ? 'selected' : '' }}
                                                 value="{{ $category_list->id }}">{{ $category_list->name }}</option>
                                         @foreach($category_list->childrenCategories as $childrenCategories)
