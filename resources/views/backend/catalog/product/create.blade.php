@@ -55,8 +55,7 @@
                         {{-- IMAGE --}}
                         <div class="col-4">
                             <div class="input-group mb-3">
-                                <label class="input-group-text col justify-content-center hvr-border-fade"
-                                style="cursor:pointer; border-radius: 3px;" for="image">
+                                <label class="input-group-text col justify-content-center hvr-border-fade" style="cursor:pointer; border-radius: 3px;" for="images">
                                     <p class="text-dark" id="p">
                                         <br>
                                         <i class="fa-light fa-image"></i>
@@ -73,11 +72,11 @@
                                     <img id="preview-image-before-upload" src=""
                                          style="max-height: 250px; max-width:200px;">
                                 </label>
-                                <input type="file" id="image" name="image"
-                                       class="form-control @error('image') is-invalid @enderror" hidden
-                                       accept=".jpeg, .png, .jpg, .gif, .svg"
-                                       value="{{ old('image') }}">
-                                @error('image')
+                                <input type="file" id="images" name="images[]"
+                                       class="form-control @error('images') is-invalid @enderror" hidden
+                                       accept=".jpeg, .png, .jpg, .gif, .svg" multiple
+                                       value="{{ old('images') }}">
+                                @error('images')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
