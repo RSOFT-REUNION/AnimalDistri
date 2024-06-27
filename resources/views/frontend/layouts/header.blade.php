@@ -68,6 +68,7 @@
         </div>
     </div>
 </header>
+
 <nav class="navbar navbar-expand-lg shadow-lg bg-primary-trans p-0" aria-label="Navbar">
     <div class="container">
         <p class="navbar-brand"></p>
@@ -78,16 +79,16 @@
         <div class="offcanvas offcanvas-end  overflow-auto" tabindex="-1" id="offcanvasNavbar2"
              aria-labelledby="offcanvasNavbar2Label">
             <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasNavbar2Label"><img class="img-fluid"
-                                                                            src="{{ asset('/frontend/images/logo/logo.png') }}"
-                                                                            alt="logo"></h5>
+                <h5 class="offcanvas-title" id="offcanvasNavbar2Label">
+                    <img class="img-fluid" src="{{ asset('/frontend/images/logo/logo.png') }}" alt="logo">
+                </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
                 <ul class="nav me-auto">
                     @foreach($menu_produits as $category)
                         @if((count($category->childrenCategories) > 0))
-                            <li class="nav-item dropdown dropdown-mega position-static">
+                            <li class="nav-item dropdown dropdown-mega position-static w-lg-100">
                                 <a class="nav-link dropdown-toggle p-3" href="#" data-bs-toggle="dropdown"
                                    data-bs-auto-close="outside">{{ $category->name }}</a>
                                 <div class="dropdown-menu shadow bg-opacity-75">
@@ -122,17 +123,17 @@
                                                                 tabindex="0">
                                                                 <div class="row">
                                                                     @foreach($childrenCategories->childrenCategories as $childrenCategories)
-                                                                            <div class="col-12 col-md-12 col-lg-2 col-xl-2">
-                                                                                <h4 class="mt-2 mb-3"><a class="link-dark"
-                                                                                                         href="/nos-produits/{{ $childrenCategories->slug }}">{{ $childrenCategories->name }}</a>
-                                                                                </h4>
-                                                                                @foreach($childrenCategories->childrenCategories as $childrenCategories)
-                                                                                    <a class="link-dark ps-3"
-                                                                                       href="/nos-produits/{{ $childrenCategories->slug }}">
-                                                                                        <i class="fa-solid fa-arrow-right"></i> {{ $childrenCategories->name }}
-                                                                                    </a><br>
-                                                                                @endforeach
-                                                                            </div>
+                                                                        <div class="col-12 col-md-12 col-lg-2 col-xl-2">
+                                                                            <h4 class="mt-2 mb-3"><a class="link-dark"
+                                                                                                     href="/nos-produits/{{ $childrenCategories->slug }}">{{ $childrenCategories->name }}</a>
+                                                                            </h4>
+                                                                            @foreach($childrenCategories->childrenCategories as $childrenCategories)
+                                                                                <a class="link-dark ps-3"
+                                                                                   href="/nos-produits/{{ $childrenCategories->slug }}">
+                                                                                    <i class="fa-solid fa-arrow-right"></i> {{ $childrenCategories->name }}
+                                                                                </a><br>
+                                                                            @endforeach
+                                                                        </div>
                                                                     @endforeach
                                                                 </div>
                                                             </div>
@@ -145,15 +146,16 @@
                                 </div>
                             </li>
                         @else
-                            <li class="nav-item"><a href="/nos-produits/{{ $category->slug }}"
+                            <li class="nav-item w-lg-100"><a href="/nos-produits/{{ $category->slug }}"
                                                     class="nav-link p-3">{{ $category->name }}</a></li>
                         @endif
                     @endforeach
 
                 </ul>
                 <ul class="nav">
-                    <li class="nav-item"><a href="#" class="nav-link p-3">Promos / Bon plans</a></li>
+                    <li class="nav-item w-lg-100"><a href="#" class="nav-link p-3">Promos / Bon plans</a></li>
                 </ul>
+
             </div>
         </div>
     </div>

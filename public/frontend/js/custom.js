@@ -164,3 +164,24 @@ function showAlert() {
             });
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    var dropdown = document.querySelector('.nav-item.dropdown');
+    var dropdownMenu = dropdown.querySelector('.dropdown-menu');
+
+    dropdown.addEventListener('mouseenter', function() {
+        dropdownMenu.classList.remove('fade-out');
+        dropdownMenu.classList.add('fade-in');
+        dropdown.classList.add('hover');
+        dropdownMenu.style.display = 'block';
+    });
+
+    dropdown.addEventListener('mouseleave', function() {
+        dropdownMenu.classList.remove('fade-in');
+        dropdownMenu.classList.add('fade-out');
+        dropdown.classList.remove('hover');
+        setTimeout(function() {
+            dropdownMenu.style.display = 'none';
+        }, 300); // Matches the animation duration
+    });
+});
+

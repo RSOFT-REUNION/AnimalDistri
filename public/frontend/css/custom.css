@@ -258,6 +258,43 @@ a.nav-link.active {
     background-color: rgb(255,255,255,0.75);
 }
 
+/* CSS to handle dropdown on hover */
+/* CSS to handle dropdown on hover */
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+    animation: fadeIn 0.5s ease forwards; /* Adjust timing and animation as needed */
+}
+
+.nav-item .dropdown-menu {
+    display: none;
+    margin-top: 0;
+    animation: fadeOut 0.5s ease forwards; /* Initial fade-out animation */
+}
+
+/* Keyframes for the animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px); /* Optional: Slide down effect */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-10px); /* Optional: Slide up effect */
+    }
+}
+
+
 .navbar-toggler {
     border: none;
     padding: 0;
@@ -591,14 +628,4 @@ button.btn-close {
 /*** Modal Panier ***/
 .offcanvas, .offcanvas-lg, .offcanvas-md, .offcanvas-sm, .offcanvas-xl, .offcanvas-xxl {
     --bs-offcanvas-width: 500px;
-}
-
-
-/***
-
-Responcive
-
- */
-.offcanvas-body {
-    text-align: center;
 }
