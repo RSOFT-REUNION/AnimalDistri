@@ -8,7 +8,6 @@
         <div class="form-group">
             <label class="form-control-label" for="composition">Composition</label>
             <textarea name="composition" id="composition" class="@error('composition') is-invalid @enderror form-control">{{ old('composition', $product->composition) }}</textarea>
-            <div id="composition" class="form-text">Indiquez ici les matériaux, la provenance des ingrédients, les allergènes.</div>
             @error('composition')
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror
