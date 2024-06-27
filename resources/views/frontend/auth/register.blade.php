@@ -11,18 +11,19 @@
                         <i class="fa-solid fa-home"></i>
                     </a>
                 </li>
-                <li class="breadcrumb-item active link-dark" aria-current="page">{{ __('Register') }}</li>
+                <li class="breadcrumb-item active link-dark" aria-current="page">Demande de création de compte</li>
             </ol>
         </nav>
     </div>
 
     <h1 class="text-center mb-5">Bienvenue</h1>
+    <p class="text-center">Rempliser le formulaire de demande de création de compte.</p>
 
 
     <div class="row row-flex">
         <div class="col-12 col-md-2 content p-5"></div>
         <div class="col-12 col-md-8 content p-5">
-            <form method="POST" action="{{ route('register') }}">
+            <form method="POST" action="">
                 @csrf
 
                 <div class="row">
@@ -66,6 +67,39 @@
                 </div>
 
                 <div class="form-group mb-4">
+                    <label class="form-control-label" for="cities">Type de l'entreprise <span
+                            class="small text-danger">*</span> : </label>
+                    <select class="form-select" aria-label="Default select example" name="cities" id="cities">
+                        <option value="Association">Association ou Pension</option>
+                        <option value="Éleveurs">Éleveurs</option>
+                        <option value="Commerce">Commerce</option>
+                        <option value="GMS">GMS</option>
+                        <option value="Revendeur">Revendeur</option>
+                        <option value="Vétérinaire">Vétérinaire</option>
+                    </select>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label class="form-control-label" for="entreprise_name">Nom de l'entreprise : </label>
+                    <input id="entreprise_name" type="entreprise_name" name="entreprise_name"
+                           class="@error('entreprise_name') is-invalid @enderror form-control"
+                           value="{{ old('entreprise_name') }}">
+                    @error('entreprise_name')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="form-group mb-4">
+                    <label class="form-control-label" for="siret">Siret : </label>
+                    <input id="siret" type="text" name="siret"
+                           class="@error('siret') is-invalid @enderror form-control"
+                           value="{{ old('siret') }}">
+                    @error('siret')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="form-group mb-4">
                     <label class="form-control-label" for="email">Adresse e-mail : <span
                             class="small text-danger">*</span></label>
                     <input id="email" type="email" name="email"
@@ -74,70 +108,6 @@
                     @error('email')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-                </div>
-
-                <div class="row">
-                    <div class="col-6">
-                        <div class="form-group mb-4">
-                            <label class="form-control-label" for="password">Mot de passe : <span
-                                    class="small text-danger">*</span></label>
-                            <input id="password" type="password" name="password"
-                                   class="@error('password') is-invalid @enderror form-control" required>
-                            @error('password')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group mb-4">
-                            <label class="form-control-label" for="password_confirmation">Confirmer le mot de passe :
-                                <span class="small text-danger">*</span></label>
-                            <input id="password_confirmation" type="password" name="password_confirmation"
-                                   class="@error('password_confirmation') is-invalid @enderror form-control" required>
-                            @error('password_confirmation')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="row">
-                    <div class="col-12">
-                        <div class="form-group">
-                            <label class="form-control-label" for="address">Adresse <span
-                                    class="small text-danger">*</span> : </label>
-                            <input id="address" type="text" name="address"
-                                   class="@error('address') is-invalid @enderror form-control" required
-                                   value="{{ old('address') }}">
-                            @error('address')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-8">
-                        <div class="form-group">
-                            <label class="form-control-label" for="address2">Complément d'adresse : </label>
-                            <input id="address2" type="text" name="address2"
-                                   class="@error('address2') is-invalid @enderror form-control"
-                                   value="{{ old('address2') }}">
-                            @error('address2')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="form-group">
-                            <label class="form-control-label" for="cities">Code postal - Ville <span
-                                    class="small text-danger">*</span> : </label>
-                            <select class="form-select" aria-label="Default select example" name="cities" id="cities">
-                                @foreach($cities  as $city)
-                                    <option value="{{ $city->postal_code }}">{{ $city->city .' - '. $city->postal_code }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="row">
@@ -153,33 +123,21 @@
                         </div>
                     </div>
                     <div class="col-6">
-                        <div class="form-group">
-                            <label class="form-control-label" for="birthday">Date de naissance <span
+                        <div class="form-group mb-4">
+                            <label class="form-control-label" for="cities">Code postal - Ville <span
                                     class="small text-danger">*</span> : </label>
-                            <input type="date" id="birthday" name="birthday"
-                                   class="@error('birthday') is-invalid @enderror form-control"
-                                   value="{{ old('birthday') }}">
-                            @error('birthday')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                            <select class="form-select" aria-label="Default select example" name="cities" id="cities">
+                                @foreach($cities  as $city)
+                                    <option value="{{ $city->postal_code }}">{{ $city->city .' - '. $city->postal_code }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-check form-switch mb-3 pl-5">
-                    <input type="checkbox" class="form-check-input" id="newsletter"
-                           name="newsletter" {{ old('newsletter') ? 'checked' : '' }}>
-                    <label class="form-check-label" for="newsletter">Je souhaite m'abonner à la newsletter</label>
-                </div>
-
-                <div class="form-check form-switch mb-5 pl-5">
-                    <input type="checkbox" class="form-check-input" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }} required>
-                    <label class="form-check-label" for="remember">J'accepte les <a href="{{ route('legalnotice') }}" target="_blank" class="blackcolor">Mentions légales</a> et les <a class="blackcolor" href="{{ route('termsofservice') }}" target="_blank">CGU</a> <span class="small text-danger">*</span></label>
-                </div>
-
-                <div class="text-center">
+                <div class="text-center mt-4">
                     <button class="btn btn-primary btn-lg hvr-grow-shadow w-100">
-                        {{ __('Register') }}
+                        Envoyer la demande
                     </button>
                 </div>
 

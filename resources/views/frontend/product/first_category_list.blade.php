@@ -18,7 +18,7 @@
     </div>
 
     <div class="text-center">
-        <h1 class="mb-3">Nos produits</h1>
+        <h1 class="mb-5">Nos produits</h1>
     </div>
 
     <div class="container_slider">

@@ -18,31 +18,36 @@
                     <a class="link-dark" href="{{ route('product.first_category_list') }}">Nos Produits</a>
                 </li>
 
-                @foreach($product->categories as $category)
-                    @if($parentCategory = getCategoryParentInfo($category->category_id))
-                        @if($grandParentCategory = getCategoryParentInfo($parentCategory->category_id))
-                            @if($greatGrandParentCategory = getCategoryParentInfo($grandParentCategory->category_id))
-                                <li class="breadcrumb-item">
-                                    <a class="link-dark" href="/nos-produits/{{ $greatGrandParentCategory->slug }}">{{ $greatGrandParentCategory->name }}</a>
-                                </li>
-                            @endif
-                            <li class="breadcrumb-item">
-                                <a class="link-dark" href="/nos-produits/{{ $grandParentCategory->slug }}">{{ $grandParentCategory->name }}</a>
-                            </li>
-                        @endif
-                        <li class="breadcrumb-item">
-                            <a class="link-dark" href="/nos-produits/{{ $parentCategory->slug }}">{{ $parentCategory->name }}</a>
-                        </li>
-                    @endif
-                    <li class="breadcrumb-item">
-                        <a class="link-dark" href="/nos-produits/{{ $category->slug }}">{{ $category->name }}</a>
-                    </li>
-                @endforeach
+                @if($product->categories->isNotEmpty())
+                    @php
+                        // Get the first category of the product
+                        $category = $product->categories->first();
+                        // Initialize an empty array to store the category hierarchy
+                        $categoryHierarchy = [];
+                        // Function to recursively get parent categories
+                        function getCategoryHierarchy($category) {
+                            $hierarchy = [];
+                            while ($category) {
+                                array_unshift($hierarchy, $category);
+                                $category = getCategoryParentInfo($category->category_id);
+                            }
+                            return $hierarchy;
+                        }
+                        // Get the full hierarchy for the first category
+                        $categoryHierarchy = getCategoryHierarchy($category);
+                    @endphp
 
+                    @foreach($categoryHierarchy as $cat)
+                        <li class="breadcrumb-item">
+                            <a class="link-dark" href="/nos-produits/{{ $cat->slug }}">{{ $cat->name }}</a>
+                        </li>
+                    @endforeach
+                @endif
 
                 <li class="breadcrumb-item active link-dark" aria-current="page">{{ $product->name }}</li>
             </ol>
         </nav>
+
 
     </div>
 
@@ -75,6 +80,10 @@
             <h1 data-aos="flip-up" class="text-dark">{{ $product->name }}</h1>
             <p class="text-primary mb-4">Code EAN : {{ $product->barcode }}</p>
             <h5 class="mb-4">{{ $product->short_description }}</h5>
+
+            @auth()
+
+
             <div class="row row-cols-2 align-items-center mb-4">
                 <div class="col align-self-start">
                     <p>
@@ -158,59 +167,39 @@
                 @endif
             </div>
 
+            @endauth
+
         </div>
     </div>
 
     <div class="px-5 mb-5">
         <ul class="nav nav-tabs bg-primary rounded-top shadow-sm" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Composition</button>
+                <button class="nav-link active" id="composition" data-bs-toggle="tab" data-bs-target="#composition-pane" type="button" role="tab" aria-controls="composition-pane" aria-selected="true">Composition</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Mode d'emploi</button>
+                <button class="nav-link" id="constituants" data-bs-toggle="tab" data-bs-target="#constituants-pane" type="button" role="tab" aria-controls="constituants-pane" aria-selected="true">Constituants Analytiques</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Additifs</button>
+                <button class="nav-link" id="mode_emploi-tab" data-bs-toggle="tab" data-bs-target="#mode_emploi-pane" type="button" role="tab" aria-controls="mode_emploi-pane" aria-selected="false">Mode d'emploi</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="additifs-tab" data-bs-toggle="tab" data-bs-target="#additifs-pane" type="button" role="tab" aria-controls="additifs-pane" aria-selected="false">Additifs</button>
             </li>
         </ul>
         <div class="tab-content bg-light rounded-bottom shadow-sm" id="myTabContent">
-            <div class="tab-pane fade show active p-3" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-                <p>Ingrédients :</p>
-                Lorem ipsum dolor sit amet consectetur. Arcu lorem dis posuere congue sit proin. Viverra velit diam quam morbi consectetur molestie. Viverra ullamcorper cras cras enim lectus
-                mi turpis. Feugiat ac est at in non sit scelerisque pretium. Pulvinar cursus malesuada purus vitae fermentum massa. Lorem tellus iaculis nibh amet fringilla cursus condimentum
-                fringilla adipiscing. Eu erat a sapien in nisl. Ultrices pulvinar aliquam potenti faucibus felis. Tempus cursus quis ligula et. Dui sit augue elit accumsan lacus nunc sodales ante ut. Eu
-                adipiscing dui justo et.
-
-                Malesuada sed sit volutpat mauris mauris tortor in placerat mattis. Tortor nunc rutrum faucibus lacus in. Mattis vitae mattis id accumsan. Eu massa amet ullamcorper nisi
-                condimentum ut eget. Ornare morbi ullamcorper ut sit. Pellentesque in nunc dui diam in elit pharetra tortor. Proin cursus sed id dolor turpis sagittis est. Ullamcorper amet vel
-                tellus tincidunt morbi porta senectus amet. Eget erat rhoncus metus vitae. Enim a odio risus tincidunt ut vitae. Risus augue duis dictumst feugiat cursus. Elementum nec id
-                porttitor imperdiet scelerisque arcu lobortis.
-
-                Et sed eleifend aliquam condimentum in hac facilisis dui faucibus. Metus viverra turpis suspendisse at sed mauris eleifend luctus. Risus tellus porta nec quis. Morbi scelerisque et.</div>
-            <div class="tab-pane fade p-3" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0"><p>Ingrédients :</p>
-                Lorem ipsum dolor sit amet consectetur. Arcu lorem dis posuere congue sit proin. Viverra velit diam quam morbi consectetur molestie. Viverra ullamcorper cras cras enim lectus
-                mi turpis. Feugiat ac est at in non sit scelerisque pretium. Pulvinar cursus malesuada purus vitae fermentum massa. Lorem tellus iaculis nibh amet fringilla cursus condimentum
-                fringilla adipiscing. Eu erat a sapien in nisl. Ultrices pulvinar aliquam potenti faucibus felis. Tempus cursus quis ligula et. Dui sit augue elit accumsan lacus nunc sodales ante ut. Eu
-                adipiscing dui justo et.
-
-                Malesuada sed sit volutpat mauris mauris tortor in placerat mattis. Tortor nunc rutrum faucibus lacus in. Mattis vitae mattis id accumsan. Eu massa amet ullamcorper nisi
-                condimentum ut eget. Ornare morbi ullamcorper ut sit. Pellentesque in nunc dui diam in elit pharetra tortor. Proin cursus sed id dolor turpis sagittis est. Ullamcorper amet vel
-                tellus tincidunt morbi porta senectus amet. Eget erat rhoncus metus vitae. Enim a odio risus tincidunt ut vitae. Risus augue duis dictumst feugiat cursus. Elementum nec id
-                porttitor imperdiet scelerisque arcu lobortis.
-
-                Et sed eleifend aliquam condimentum in hac facilisis dui faucibus. Metus viverra turpis suspendisse at sed mauris eleifend luctus. Risus tellus porta nec quis. Morbi scelerisque et.</div>
-            <div class="tab-pane fade p-3" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0"><p>Ingrédients :</p>
-                Lorem ipsum dolor sit amet consectetur. Arcu lorem dis posuere congue sit proin. Viverra velit diam quam morbi consectetur molestie. Viverra ullamcorper cras cras enim lectus
-                mi turpis. Feugiat ac est at in non sit scelerisque pretium. Pulvinar cursus malesuada purus vitae fermentum massa. Lorem tellus iaculis nibh amet fringilla cursus condimentum
-                fringilla adipiscing. Eu erat a sapien in nisl. Ultrices pulvinar aliquam potenti faucibus felis. Tempus cursus quis ligula et. Dui sit augue elit accumsan lacus nunc sodales ante ut. Eu
-                adipiscing dui justo et.
-
-                Malesuada sed sit volutpat mauris mauris tortor in placerat mattis. Tortor nunc rutrum faucibus lacus in. Mattis vitae mattis id accumsan. Eu massa amet ullamcorper nisi
-                condimentum ut eget. Ornare morbi ullamcorper ut sit. Pellentesque in nunc dui diam in elit pharetra tortor. Proin cursus sed id dolor turpis sagittis est. Ullamcorper amet vel
-                tellus tincidunt morbi porta senectus amet. Eget erat rhoncus metus vitae. Enim a odio risus tincidunt ut vitae. Risus augue duis dictumst feugiat cursus. Elementum nec id
-                porttitor imperdiet scelerisque arcu lobortis.
-
-                Et sed eleifend aliquam condimentum in hac facilisis dui faucibus. Metus viverra turpis suspendisse at sed mauris eleifend luctus. Risus tellus porta nec quis. Morbi scelerisque et.</div>
+            <div class="tab-pane fade show active p-3" id="composition-pane" role="tabpanel" aria-labelledby="composition" tabindex="0">
+                {!! $product->composition !!}
+            </div>
+            <div class="tab-pane fade show p-3" id="constituants-pane" role="tabpanel" aria-labelledby="constituants" tabindex="0">
+                {!! $product->constituants !!}
+            </div>
+            <div class="tab-pane fade p-3" id="mode_emploi-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                {!! $product->mode_emploi !!}
+            </div>
+            <div class="tab-pane fade p-3" id="additifs-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+                {!! $product->additifs !!}
+            </div>
         </div>
     </div>
 

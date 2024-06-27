@@ -226,7 +226,7 @@ h3 {
     font-size: 18px;
 }
 .nav-link:focus, .nav-link:hover {
-    color: #000000;
+    color: #FFFFFF;
     letter-spacing: 2px;
 }
 a.nav-link.active {
@@ -472,11 +472,7 @@ a.nav-link.active {
     display: inline-block;
 }
 
-.category-image {
-    max-width: 100%;
-    border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.8);
-}
+
 
 .category-title {
     position: absolute;

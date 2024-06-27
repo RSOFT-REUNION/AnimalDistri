@@ -21,8 +21,11 @@ class ProductController extends FrontendBaseController
     public function category_list(string $slug, Request $request)
     {
         $category_current = Category::where('slug', $slug)->first();
+        $categories = Category::where('category_id', $category_current->id)
+            ->where('active', 1)
+            ->get();
 
-        // Function to get all descendant category IDs recursively that have products
+        // Function to get all descendant category IDs recursively
         function getDescendantCategoryIds($categoryId, $level = 0, $maxLevel = 4) {
             if ($level >= $maxLevel) {
                 return collect();
@@ -30,7 +33,6 @@ class ProductController extends FrontendBaseController
 
             $subcategories = Category::where('category_id', $categoryId)
                 ->where('active', 1)
-                ->has('products')
                 ->pluck('id');
 
             $allDescendantIds = $subcategories->flatMap(function($subcategoryId) use ($level, $maxLevel) {
@@ -39,12 +41,6 @@ class ProductController extends FrontendBaseController
 
             return $subcategories->merge($allDescendantIds);
         }
-
-        // Get initial categories that have products
-        $categories = Category::where('category_id', $category_current->id)
-            ->where('active', 1)
-            ->has('products')
-            ->get();
 
         /*** Query products with search and initial filtering ***/
         $productsQuery = Product::query()
@@ -168,6 +164,7 @@ class ProductController extends FrontendBaseController
             'products_maxprice' => $products_maxprice,
         ]);
     }
+
 
 
 

@@ -2,7 +2,7 @@
 <header class="bg-light bg-opacity-75 text-white py-2">
     <div class="container">
         <div class="d-flex align-items-center">
-            <a href="{{ route('index') }}" class="text-start flex-fill">
+            <a href="{{ route('index') }}" class="text-start">
                 <img class="logo hvr-wobble-to-top-right" src="{{ asset('/frontend/images/logo/logo.png') }}"
                      alt="logo">
             </a>
@@ -24,27 +24,30 @@
                 Nos marques
             </a>
 
-            <div>
-                @if(Route::currentRouteName() == 'cart.chose_address' || Route::currentRouteName() == 'cart.chose_delivery' || Route::currentRouteName() == 'cart.summary')
-                    <button class="btn me-3 btn-cart bg-dark bg-opacity-75 rounded-3 position-relative hvr-grow-shadow" type="button">
-                        <i class="fa-solid fa-basket-shopping fa-xl text-white"></i>
-                        <span
-                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><span
-                                id="nb_produit">{{ \App\Http\Controllers\Frontend\ShoppingCart\CartController::count_product() }}</span> <span
-                                class="visually-hidden">Nombres de produits dans le panier</span></span>
-                    </button>
-                @else
-                    <button class="btn p-2  me-3 btn-cart bg-dark bg-opacity-75 rounded-3 position-relative hvr-grow-shadow" type="button" data-bs-toggle="offcanvas"
-                            data-bs-target="#cart_modal" aria-controls="cart_modal">
-                        <i class="fa-solid fa-basket-shopping fa-xl text-white"></i>
-                        <span
-                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><span
-                                id="nb_produit">{{ \App\Http\Controllers\Frontend\ShoppingCart\CartController::count_product() }}</span> <span
-                                class="visually-hidden">Nombres de produits dans le panier</span></span>
-                    </button>
-                    @include('frontend.layouts.partials.cart_modal')
-                @endif
-            </div>
+            @auth()
+                <div>
+                    @if(Route::currentRouteName() == 'cart.chose_address' || Route::currentRouteName() == 'cart.chose_delivery' || Route::currentRouteName() == 'cart.summary')
+                        <button class="btn me-3 btn-cart bg-dark bg-opacity-75 rounded-3 position-relative hvr-grow-shadow" type="button">
+                            <i class="fa-solid fa-basket-shopping fa-xl text-white"></i>
+                            <span
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><span
+                                    id="nb_produit">{{ \App\Http\Controllers\Frontend\ShoppingCart\CartController::count_product() }}</span> <span
+                                    class="visually-hidden">Nombres de produits dans le panier</span></span>
+                        </button>
+                    @else
+                        <button class="btn p-2  me-3 btn-cart bg-dark bg-opacity-75 rounded-3 position-relative hvr-grow-shadow" type="button" data-bs-toggle="offcanvas"
+                                data-bs-target="#cart_modal" aria-controls="cart_modal">
+                            <i class="fa-solid fa-basket-shopping fa-xl text-white"></i>
+                            <span
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><span
+                                    id="nb_produit">{{ \App\Http\Controllers\Frontend\ShoppingCart\CartController::count_product() }}</span> <span
+                                    class="visually-hidden">Nombres de produits dans le panier</span></span>
+                        </button>
+                        @include('frontend.layouts.partials.cart_modal')
+                    @endif
+                </div>
+            @endauth
+
             <div>
                         @if(Auth::guest())
                             <a class="btn btn-primary link-effect p-2 " aria-current="page" href="{{ route('dashboard') }}"> <i

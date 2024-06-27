@@ -19,7 +19,7 @@ function getImageUrl(string $image, ?int $width = null, ?int $height = null, ?st
 {
     /*** verifie que l'image existe, sinon retroune l'image par default ***/
     if(Storage::files('/public'.$image)) {
-        $image = '/no-image.png';
+        return '/frontend/images/no-image.png';
     }
 
     if ($width === null) {
