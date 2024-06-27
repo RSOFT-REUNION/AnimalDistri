@@ -3,11 +3,16 @@
 
 @section('main-content')
 
-    <div style="margin-top: 60px;">
-        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-            <ol class="breadcrumb breadcrumb-nav mt-5 p-3 rounded-3 shadow">
-                <li class="breadcrumb-item"><a href="{{ route('index') }}"><i class="fa-solid fa-home"></i></a></li>
-                <li class="breadcrumb-item active text-white" aria-current="page">{{ __('Connexion') }}</li>
+
+    <div style="margin-top: -15px;" class="mb-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-nav mt-5 p-3">
+                <li class="breadcrumb-item">
+                    <a class="link-dark" href="{{ route('index') }}">
+                        <i class="fa-solid fa-home"></i>
+                    </a>
+                </li>
+                <li class="breadcrumb-item active link-dark" aria-current="page">{{ __('Connexion') }}</li>
             </ol>
         </nav>
     </div>
@@ -70,7 +75,8 @@
         </div>
         <div class="col-12 col-md-4 content p-5 text-center">
             <h2 class="mb-3">Pas encore inscrit ?</h2>
-            <a href="{{ route('register') }}" class="btn btn-lg btn-warning hvr-grow-shadow">Créer votre compte</a>
+            <p>Rempliser le formulaire de demande de création de compte.</p>
+            <a href="{{ route('register') }}" class="btn btn-lg btn-warning hvr-grow-shadow">Demande de compte</a>
         </div>
     </div>
 @endsection

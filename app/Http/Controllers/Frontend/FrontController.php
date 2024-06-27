@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Models\Catalog\Category;
 use App\Models\Catalog\Discount;
 use App\Models\Catalog\Product;
 use App\Models\Content\Pages;
@@ -13,11 +14,10 @@ class FrontController extends FrontendBaseController
 {
     public function index()
     {
-        $pages = Pages::where('id', '=', '1')->first();
-        $products_random = Product::with('images')->where('active',1)->inRandomOrder()->limit(6)->get();
         return view('frontend.index', [
-            'page' => $pages,
-            'products_random' => $products_random,
+            'page' => Pages::where('id', '=', '1')->first(),
+            'products_random' => Product::with('images')->where('active',1)->inRandomOrder()->limit(6)->get(),
+            'first_category_list' => Category::where('category_id', 0)->where('active', 1)->limit(6)->get(),
         ]);
     }
     public function legalnotice()

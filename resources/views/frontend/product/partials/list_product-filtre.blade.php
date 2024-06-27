@@ -19,6 +19,7 @@
             <label class="form-check-label" for="discount" style="margin-top: 6px;">Promotions</label>
         </div>
     </div>
+    @auth()
     <div class="col mb-3">
         <!--- Filtre Stock --->
         <div class="form-check form-switch d-flex justify-content-center align-items-center" style="margin-top: 4px;">
@@ -36,6 +37,7 @@
             <label class="form-check-label" for="stock" style="margin-top: 6px;">En stock</label>
         </div>
     </div>
+    @endauth
     <div class="col">
         <!--- Filtre  Chercher --->
         <div class="input-group">

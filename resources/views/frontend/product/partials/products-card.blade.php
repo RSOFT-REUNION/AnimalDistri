@@ -19,7 +19,8 @@
     </a>
     <div class="card-body">
         <h4 class="card-title"><b>{{ $product->name }}</b></h4>
-
+        <p class="card-title">{{ $product->short_description }}</p>
+        @auth()
         @if(array_key_exists($product->id,$discountProducts))
             <div class="d-flex justify-content-center align-items-center">
                 <h4 class="text-decoration-line-through text-danger">{{ formatPriceToFloat($product->price_ttc) }}
@@ -56,6 +57,6 @@
                 <button type="button" class="btn btn-danger mt-4 btn-lg btn-lg" disabled>En rupture de stock</button>
             @endif
         </div>
-
+        @endauth
     </div>
 </div>
