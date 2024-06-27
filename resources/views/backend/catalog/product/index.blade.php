@@ -43,6 +43,22 @@
                 @endcan
             </div>
 
+            <div class="product-header text-center mb-5" data-aos="fade-down">
+                <h1>{{ $category_curent->name }}</h1>
+            </div>
+
+            <div data-aos="zoom-in" class="mb-5">
+                @include('backend.product.partials.list_category')
+            </div>
+
+            @if(count($products) > 0)
+                <div data-aos="zoom-in">
+                    @include('backend.product.partials.list_product')
+                </div>
+            @else
+                <h2>Il n'y a aucun produit dans cette catégorie</h2>
+            @endif
+
             <div class="card border-left-primary shadow mb-4">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Liste des produits</h6>

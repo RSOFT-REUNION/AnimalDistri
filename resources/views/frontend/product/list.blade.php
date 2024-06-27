@@ -37,7 +37,7 @@
             @include('frontend.product.partials.list_product')
         </div>
     @else
-        <h2>Il n'y a aucun produit dans cette categorie</h2>
+        <h2>Il n'y a aucun produit dans cette catégorie</h2>
     @endif
 
 @endsection
