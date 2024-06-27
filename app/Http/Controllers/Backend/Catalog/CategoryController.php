@@ -88,7 +88,7 @@ class CategoryController extends Controller
         $validated = $request->validate([
             'name'      => 'required|min:3|max:255|string',
             'description' => 'nullable|string',
-            'category_id' => 'nullable',
+            'category_id' => 'integer',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'is_menu' => '',
             'active' => '',
@@ -96,7 +96,9 @@ class CategoryController extends Controller
         @$validated['is_menu'] = $validated['is_menu']=='on' ? 1:0;
         @$validated['active'] = $validated['active']=='on' ? 1:0;
         /*** Mise a jour du slug de la categorie ***/
-        if ($validated['category_id']) {
+        if ($validated['category_id'] == 0) {
+            $validated['slug'] = Str::slug($validated['name']);
+        } else {
             $slug = Category::where('id', '=', $validated['category_id'])->pluck('slug')->first();
             $parentCategories = explode('/', $slug);
             if (in_array($validated['name'], $parentCategories)) {
@@ -104,8 +106,6 @@ class CategoryController extends Controller
             } else {
                 $validated['slug'] = $slug . '/' . Str::slug($validated['name']);
             }
-        } else {
-            $validated['slug'] = Str::slug($validated['name']);
         }
         /*** Mise a jour de l'image ***/
         if(@$validated['image']){
