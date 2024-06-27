@@ -46,6 +46,7 @@ class Product extends Model
         }
     }
 
+    // parametres acceptés pour $fit : 'crop', 'fill' etc.  voir documentation de Glider : https://glide.thephpleague.com/
     public function getFirstImagesURL(?int $width = null, ?int $height = null, ?string $fit = null)
     {
         if($this->fav_image){
