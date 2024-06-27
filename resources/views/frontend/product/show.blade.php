@@ -78,7 +78,7 @@
             <div class="row row-cols-2 align-items-center mb-4">
                 <div class="col align-self-start">
                     <p>
-                        Ref: {{ $product->code_article }}<br>
+                        Ref: {{ $product->erp_id }}<br>
                         Stock : {{ $product->stock / 1000 }}<br>
                         Poids à l'unité : {{ formatPriceToFloat($product->weight) .' '. $product->weight_unit }}
                     </p>

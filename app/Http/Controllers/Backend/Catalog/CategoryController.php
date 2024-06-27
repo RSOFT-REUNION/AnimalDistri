@@ -102,7 +102,7 @@ class CategoryController extends Controller
             $slug = Category::where('id', '=', $validated['category_id'])->pluck('slug')->first();
             $parentCategories = explode('/', $slug);
             if (in_array($validated['name'], $parentCategories)) {
-                return back()->withErrors('Cette catégorie ne peut être parente de ' . $validated['name'] . ' car elle est déjà défini comme sa sous-catégorie.');
+                return back()->withErrors('Cette catégorie ne peut être parente de ' . $validated['name'] . ' car elle est déjà définie comme sa sous-catégorie.');
             } else {
                 $validated['slug'] = $slug . '/' . Str::slug($validated['name']);
             }

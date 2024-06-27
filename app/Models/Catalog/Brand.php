@@ -8,7 +8,7 @@ class Brand extends Model
 {
     protected $table = 'catalog_brands';
 
-    protected $fillable = ['name', 'slug', 'image', 'short_description', 'active'];
+    protected $fillable = ['erp_id', 'name', 'slug', 'image', 'short_description', 'active'];
 
 
     public function products(): HasMany

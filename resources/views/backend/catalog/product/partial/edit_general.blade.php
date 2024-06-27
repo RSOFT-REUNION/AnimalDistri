@@ -6,14 +6,23 @@
 
 
         {{-- NOM DU PRODUIT --}}
-        <div class="form-group">
-            <div class="form-group">
+        <div class="form-group row">
+            <div class="col">
                 <label class="form-control-label" for="name">Nom du produit <span class="small text-danger">*</span></label>
                 <input type="text" id="name" name="name"
                        class="@error('name') is-invalid @enderror form-control" required
                        value="{{ old('name', $product->name) }}">
                 <div id="price_ttc" class="form-text text-truncate w-75">   Lien du produit : <a target="_blank" href="{{ route('product.show', $product->slug) }}">{{ route('product.show', $product->slug) }}</a></div>
                 @error('name')
+                <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="col-3">
+                <label class="form-control-label" for="erp_id">Code SAP</label>
+                <input type="text" id="erp_id" name="erp_id"
+                       class="@error('erp_id') is-invalid @enderror form-control"
+                       value="{{ old('erp_id', $product->erp_id) }}">
+                @error('erp_id')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>

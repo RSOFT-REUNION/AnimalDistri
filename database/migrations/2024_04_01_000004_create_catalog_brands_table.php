@@ -11,6 +11,7 @@ return new class extends Migration {
     {
         Schema::create('catalog_brands', function (Blueprint $table) {
             $table->id();
+            $table->string('erp_id')->nullale();
             $table->string('name')->unique();
             $table->string('slug')->unique();
             $table->string('image')->nullable();

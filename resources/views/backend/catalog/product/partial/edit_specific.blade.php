@@ -4,20 +4,34 @@
     </div>
     <div class="card-body">
 
+
         <div class="form-group">
-            <label class="form-control-label" for="code_article">Code Article</label>
-            <input type="text" id="code_article" name="code_article"
-                   class="@error('code_article') is-invalid @enderror form-control"
-                   value="{{ old('code_article', $product->code_article) }}">
-            @error('code_article')
+            <label class="form-control-label" for="composition">Composition</label>
+            <textarea name="composition" id="composition" class="@error('composition') is-invalid @enderror form-control">{{ old('composition', $product->composition) }}</textarea>
+            <div id="composition" class="form-text">Indiquez ici les matériaux, la provenance des ingrédients, les allergènes.</div>
+            @error('composition')
+            <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="composition">Constituants analytiques</label>
+            <textarea name="constituants" id="constituants" class="@error('constituants') is-invalid @enderror form-control">{{ old('constituants', $product->constituants) }}</textarea>
+            @error('constituants')
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
         <div class="form-group">
-            <label class="form-control-label" for="composition">Composition (ingrédients, allergènes etc.) </label>
-            <textarea name="composition" id="composition" class="@error('composition') is-invalid @enderror form-control">{{ old('composition', $product->composition) }}</textarea>
-            <div id="composition" class="form-text">Indiquez ici les matériaux, la provenance des ingrédients, les allergènes.</div>
-            @error('composition')
+            <label class="form-control-label" for="composition">Mode d'emploi </label>
+            <textarea name="mode_emploi" id="mode_emploi" class="@error('mode_emploi') is-invalid @enderror form-control">{{ old('mode_emploi', $product->mode_emploi) }}</textarea>
+            @error('mode_emploi')
+            <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="additifs">Additifs </label>
+            <textarea name="additifs" id="additifs" class="@error('additifs') is-invalid @enderror form-control">{{ old('additifs', $product->additifs) }}</textarea>
+            @error('additifs')
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>

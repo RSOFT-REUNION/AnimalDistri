@@ -9,7 +9,7 @@ return new class extends Migration {
     {
         Schema::create('catalog_products', function (Blueprint $table) {
             $table->id();
-            $table->string('code_article')->nullable(); //code EBP
+            $table->string('erp_id')->nullable(); //code EBP
             $table->string('name');
             $table->string('slug')->nullable();
             // category_id   -  généré par la migration catalog_categories: $table->foreignId(category_id)->nullable();
@@ -18,6 +18,9 @@ return new class extends Migration {
             $table->string('short_description')->nullable();
             $table->longText('content')->nullable();
             $table->longText('composition')->nullable();
+            $table->longText('constituants')->nullable();
+            $table->longText('mode_emploi')->nullable();
+            $table->longText('additifs')->nullable();
             $table->string('tags')->nullable();
             $table->longText('barcode')->nullable();
             $table->string('weight_unit')->default('kg'); // kg ou l

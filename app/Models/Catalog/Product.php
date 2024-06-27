@@ -12,7 +12,7 @@ class Product extends Model
 {
     protected $table = 'catalog_products';
 
-    protected $fillable = ['code_article', 'name', 'slug', 'brand_id', 'fav_image', 'short_description', 'content', 'composition', 'tags', 'barcode', 'weight_unit', 'weight', 'price_ht','tva','price_ttc','stock', 'stock_unit', 'active', 'created_by_id','updated_by_id', 'deleted_by_id' ];
+    protected $fillable = ['erp_id', 'name', 'slug', 'brand_id', 'fav_image', 'short_description', 'content', 'composition', 'constituants', 'mode_emploi', 'additifs', 'tags', 'barcode', 'weight_unit', 'weight', 'price_ht','tva','price_ttc','stock', 'stock_unit', 'active', 'created_by_id','updated_by_id', 'deleted_by_id' ];
 
     public $images_directory = '/upload/catalog/products/';
 

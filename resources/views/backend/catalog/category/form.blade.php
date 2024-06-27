@@ -44,26 +44,39 @@
                     <div class="card-body">
 
                         <div class="form-group">
-                            <label class="form-control-label" for="category_id">Catégorie</label>
-                            <select class="form-select tomselect @error('categorie') is-invalid @enderror"
-                                    aria-label="category_id"
-                                    id="category_id" name="category_id">
-                                <option value="0" selected > Aucune catégorie</option>
+                            <label class="form-control-label" for="category_id">Categorie</label>
+                            <select class="form-select tomselect @error('categorie') is-invalid @enderror" aria-label="category_id" id="category_id" name="category_id">
+                                <option value="0" selected>Aucune catégorie</option>
                                 @foreach($categories_list as $category_list)
-                                    @if(($category_list->category_id == null) && ($category->id != $category_list->id))
-                                        <option @if($category_list->id == old('category_id')) selected @endif
-                                                @if($category_list->id == $category->category_id) selected @endif
-                                                value="{{ $category_list->id }}"> {{ $category_list->name }}</option>
+                                    @if(($category_list->category_id == 0) && ($category->id != $category_list->id))
+                                        <option @if($category_list->id == old('category_id')) selected @endif @if($category_list->id == $category->category_id) selected @endif value="{{ $category_list->id }}">
+                                            {{ $category_list->name }}
+                                        </option>
                                         @foreach($category_list->childrenCategories as $childrenCategories)
                                             @if($childrenCategories->id != $category->id)
-                                                <option @if($childrenCategories->id == old('category_id')) selected @endif
-                                                        @if($childrenCategories->id == $category->category_id) selected @endif
-                                                        value="{{ $childrenCategories->id }}">{{ $category_list->name }} -> {{ $childrenCategories->name }}</option>
+                                                <option @if($childrenCategories->id == old('category_id')) selected @endif @if($childrenCategories->id == $category->category_id) selected @endif value="{{ $childrenCategories->id }}">
+                                                    {{ $category_list->name }} -> {{ $childrenCategories->name }}
+                                                </option>
                                                 @foreach($childrenCategories->childrenCategories as $childrenChildrenCategories)
                                                     @if(($childrenCategories->id != $childrenChildrenCategories->id) && ($category->id != $childrenChildrenCategories->id))
-                                                        <option @if($childrenChildrenCategories->id == old('category_id')) selected @endif
-                                                                @if($childrenChildrenCategories->id == $category->category_id) selected @endif
-                                                                value="{{ $childrenChildrenCategories->id }}">{{ $category_list->name }} -> {{ $childrenCategories->name }} -> {{ $childrenChildrenCategories->name }}</option>                                                    @endif
+                                                        <option @if($childrenChildrenCategories->id == old('category_id')) selected @endif @if($childrenChildrenCategories->id == $category->category_id) selected @endif value="{{ $childrenChildrenCategories->id }}">
+                                                            {{ $category_list->name }} -> {{ $childrenCategories->name }} -> {{ $childrenChildrenCategories->name }}
+                                                        </option>
+                                                        @foreach($childrenChildrenCategories->childrenCategories as $childrenChildrenChildrenCategories)
+                                                            @if(($childrenChildrenCategories->id != $childrenChildrenChildrenCategories->id) && ($category->id != $childrenChildrenChildrenCategories->id))
+                                                                <option @if($childrenChildrenChildrenCategories->id == old('category_id')) selected @endif @if($childrenChildrenChildrenCategories->id == $category->category_id) selected @endif value="{{ $childrenChildrenChildrenCategories->id }}">
+                                                                    {{ $category_list->name }} -> {{ $childrenCategories->name }} -> {{ $childrenChildrenCategories->name }} -> {{ $childrenChildrenChildrenCategories->name }}
+                                                                </option>
+                                                                @foreach($childrenChildrenChildrenCategories->childrenCategories as $childrenChildrenChildrenChildrenCategories)
+                                                                    @if(($childrenChildrenChildrenCategories->id != $childrenChildrenChildrenChildrenCategories->id) && ($category->id != $childrenChildrenChildrenChildrenCategories->id))
+                                                                        <option @if($childrenChildrenChildrenChildrenCategories->id == old('category_id')) selected @endif @if($childrenChildrenChildrenChildrenCategories->id == $category->category_id) selected @endif value="{{ $childrenChildrenChildrenChildrenCategories->id }}">
+                                                                            {{ $category_list->name }} -> {{ $childrenCategories->name }} -> {{ $childrenChildrenCategories->name }} -> {{ $childrenChildrenChildrenCategories->name }} -> {{ $childrenChildrenChildrenChildrenCategories->name }}
+                                                                        </option>
+                                                                    @endif
+                                                                @endforeach
+                                                            @endif
+                                                        @endforeach
+                                                    @endif
                                                 @endforeach
                                             @endif
                                         @endforeach
@@ -71,6 +84,7 @@
                                 @endforeach
                             </select>
                         </div>
+
 
                         <div class="form-group">
                             <label class="form-control-label" for="name">Nom <span

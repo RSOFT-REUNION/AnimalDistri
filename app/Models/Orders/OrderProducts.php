@@ -15,7 +15,7 @@ class OrderProducts extends Model
         'orders_id',
         'carts_id',
         'product_id',
-        'code_article',
+        'erp_id',
         'name',
         'short_description',
         'fav_image',

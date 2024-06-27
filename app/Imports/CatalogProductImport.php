@@ -26,7 +26,7 @@ class CatalogProductImport implements ToCollection, WithHeadingRow
             if (empty($import_product["code_sous_famille"])) {
                 if (empty($import_product["code_famille"])) {
                     $i++;
-                    $logtxt .= $import_product["code_article"].' - '.$import_product["name"].' : NA PAS ETE IMPORTER'.PHP_EOL;
+                    $logtxt .= $import_product["erp_id"].' - '.$import_product["name"].' : NA PAS ETE IMPORTER'.PHP_EOL;
                     continue;
                 }
                 $categorieid = $categorie->firstWhere('erp_id_famille', $import_product["code_famille"])->id;
@@ -53,8 +53,8 @@ class CatalogProductImport implements ToCollection, WithHeadingRow
              ***/
 
             // Verifies que le produit existe pour le mettre a jour
-            if ($products->contains('code_article', $import_product["code_article"])) {
-                $product = $products->firstWhere('code_article', $import_product["code_article"]);
+            if ($products->contains('erp_id', $import_product["erp_id"])) {
+                $product = $products->firstWhere('erp_id', $import_product["erp_id"]);
                 if($import_product["sysmodifieddate"] > $product->updated_at){
                     $product->name = $import_product["name"];
                     $product->slug = $import_product["slug"];
@@ -70,15 +70,15 @@ class CatalogProductImport implements ToCollection, WithHeadingRow
                     $product->barcode = $import_product["barcode"];
                     $product->save();
                     $i++;
-                    $logtxt .= $import_product["code_article"].' - '.$import_product["name"].' : a ete mise a jour'.PHP_EOL;
+                    $logtxt .= $import_product["erp_id"].' - '.$import_product["name"].' : a ete mise a jour'.PHP_EOL;
                 } else {
                     $i++;
-                    $logtxt .= $import_product["code_article"].' - '.$import_product["name"].' : exist deja'.PHP_EOL;
+                    $logtxt .= $import_product["erp_id"].' - '.$import_product["name"].' : exist deja'.PHP_EOL;
                 }
             }
             else {
                 $p = Product::create([
-                    'code_article'     => $import_product['code_article'],
+                    'erp_id'     => $import_product['erp_id'],
                     'name'     => $import_product['name'],
                     'category_id'     => $categorieid,
                     'slug'     => $import_product['slug'],

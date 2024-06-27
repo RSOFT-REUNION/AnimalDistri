@@ -196,7 +196,7 @@ class OrdersController extends FrontendBaseController
             $orderProducts->orders_id = $order->id;
             $orderProducts->carts_id = $cart_product->carts_id;
             $orderProducts->product_id = $cart_product->product_id;
-            $orderProducts->code_article = $productInfo->code_article;
+            $orderProducts->erp_id = $productInfo->erp_id;
             $orderProducts->name = $productInfo->name;
             $orderProducts->short_description = $productInfo->short_description;
             $orderProducts->fav_image = $cart_product->fav_image;
@@ -299,7 +299,7 @@ class OrdersController extends FrontendBaseController
             $orderProducts->orders_id = $order->id;
             $orderProducts->carts_id = $cart_product->carts_id;
             $orderProducts->product_id = $cart_product->product_id;
-            $orderProducts->code_article = $productInfo->code_article;
+            $orderProducts->erp_id = $productInfo->erp_id;
             $orderProducts->name = $productInfo->name;
             $orderProducts->short_description = $productInfo->short_description;
             $orderProducts->fav_image = $cart_product->fav_image;

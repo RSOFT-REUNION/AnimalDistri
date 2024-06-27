@@ -70,7 +70,7 @@ return new class extends Migration {
             $table->integer('carts_id');
             $table->integer('product_id');
             // Infor Produits
-            $table->string('code_article')->nullable(); //code EBP
+            $table->string('erp_id')->nullable(); //code EBP
             $table->string('name');
             $table->string('short_description')->nullable();
             $table->string('fav_image')->nullable();

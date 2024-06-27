@@ -60,7 +60,14 @@ class ProductController extends Controller
             $product->fav_image = $product->images()?->first()->id;
             $product->save();
         }
-        return back()->withSuccess('Produit ajouté');
+        return view('backend.catalog.product.edit', [
+            'product' => $product,
+            'product_categories' => $product->categories()->pluck('id')->all(),
+            'brands_list' => Brand::orderBy('name')->get(),
+            'categories_list' => Category::with(['childrenCategories' => function ($q) {
+                $q->orderBy('name');
+            }])->get(),
+        ]);
     }
 
     /**
@@ -91,9 +98,12 @@ class ProductController extends Controller
             'product_categories' => 'array|nullable',
             'brand_id' => 'integer|nullable',
             'short_description' => 'string|nullable',
-            'code_article'  => 'string|nullable',
+            'erp_id'  => 'string|nullable',
             'tags' => 'nullable',
             'composition' => 'string|nullable',
+            'constituants' => 'string|nullable',
+            'mode_emploi' => 'string|nullable',
+            'additifs' => 'string|nullable',
             'content' => 'string|nullable',
             'stock' => 'required',
             'stock_unit' => 'string|required',
