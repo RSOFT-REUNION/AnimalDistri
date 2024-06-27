@@ -14,3 +14,4 @@
     <link href="{{ asset('vendor/flexslider/css/flexslider.css') }}" rel="stylesheet">
 
     <link href="{{ asset('frontend/css/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('frontend/css/responsive.css') }}" rel="stylesheet">
