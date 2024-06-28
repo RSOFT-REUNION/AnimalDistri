@@ -15,8 +15,6 @@ Route::middleware(['auth'])->group(function ()  use ($idRegex, $slugRegex) {
 
     //Orders
     Route::get('/mon-compte/mes-commandes', [ProfileController::class, 'orders_show'])->name('orders.show');
-    //loyality
-    Route::get('/mon-compte/mon-programme-fidelite', [ProfileController::class, 'loyality_show'])->name('loyality.show');
     //address
     Route::resource('/mon-compte/mes-adresses', AddressesController::class)->except(['show'])->names([
         'index' => 'address.index',

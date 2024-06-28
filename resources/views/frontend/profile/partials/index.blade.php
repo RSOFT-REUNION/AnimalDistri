@@ -2,11 +2,15 @@
 @section('title', __('Mon Compte') )
 
 @section('dashboard-breadcrumb')
-    <div style="margin-top: 60px;" class="mb-5">
-        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-            <ol class="breadcrumb breadcrumb-nav mt-5 p-3 rounded-3 shadow">
-                <li class="breadcrumb-item"><a href="{{ route('index') }}"><i class="fa-solid fa-home"></i></a></li>
-                <li class="breadcrumb-item active text-white" aria-current="page">Mon compte</li>
+    <div style="margin-top: -15px;" class="mb-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-nav mt-5 p-3 custom-breadcrumb">
+                <li class="breadcrumb-item">
+                    <a class="link-dark" href="{{ route('index') }}">
+                        <i class="fa-solid fa-home"></i>
+                    </a>
+                </li>
+                <li class="breadcrumb-item active link-dark" aria-current="page">Mon compte</li>
             </ol>
         </nav>
     </div>
@@ -53,16 +57,6 @@
                     <div class="card-body text-center text-black">
                         <i class="fa-solid fa-basket-shopping fa-4x mb-3"></i>
                         <p>Mes commandes</p>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col-md-3 col-12 mb-4">
-            <div class="card bg-gray rounded-4 hvr-grow-shadow w-100">
-                <a href="{{ route('loyality.show') }}">
-                    <div class="card-body text-center text-black">
-                        <i class="fa-solid fa-star fa-4x mb-3"></i>
-                        <p>Mon programme fidélité</p>
                     </div>
                 </a>
             </div>
