@@ -112,11 +112,8 @@ class CartController extends FrontendBaseController
     {
         $deliver = Delivery::findOrFail($request->delivery);
         $cart = Carts::getCartInstance();
-        $cart->loyality = $request->loyality;
         $cart->delivery_id = $request->delivery;
         $cart->delivery_price = $deliver->price_ttc;
-        $cart->delivery_date = $request->delivery_date;
-        $cart->delivery_slot = $request->delivery_slot;
         $cart->total_ttc  = $cart->countProductsPrice($deliver->price_ttc, $request->loyality);
         $cart->save();
         return view('frontend.carts.summary', [

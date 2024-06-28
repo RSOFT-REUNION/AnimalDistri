@@ -44,16 +44,16 @@
             </div>
 
             <div class="product-header text-center mb-5" data-aos="fade-down">
-                <h1>{{ $category_curent->name }}</h1>
+                <h1></h1>
             </div>
 
             <div data-aos="zoom-in" class="mb-5">
-                @include('backend.product.partials.list_category')
+
             </div>
 
             @if(count($products) > 0)
                 <div data-aos="zoom-in">
-                    @include('backend.product.partials.list_product')
+
                 </div>
             @else
                 <h2>Il n'y a aucun produit dans cette catégorie</h2>

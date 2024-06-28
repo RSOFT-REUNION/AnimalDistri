@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend\Orders;
 
 
 use App\Http\Controllers\Frontend\FrontendBaseController;
+use App\Mail\NewOrderMail;
 use App\Models\Carts\Carts;
 use App\Models\Catalog\Product;
 use App\Models\Orders\OrderProducts;
@@ -12,6 +13,7 @@ use App\Models\Users\Address;
 use App\Models\Users\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Cookie;
 
@@ -236,9 +238,22 @@ class OrdersController extends FrontendBaseController
 
 
     // Enregistrement des toutes les informations de la commande direct
-    public function cart_validation(Request $request)
+    public function cart_validation(Request $request, ?string $payment_id  = 'PAYMENT_TEST')
     {
-        $payment_id = $request->payment_id;
+        $payment_test = false;
+        if($payment_id == 'PAYMENT_TEST') {
+            $payment_test = true;
+            $payment_id = generateUniqueAn6();
+            $cart = Carts::findOrFail($request->cart);
+            $cart->update([
+                'delivery_id' => $request->deliver,
+                'user_address_delivery' => $request->user_address_delivery,
+                'user_address_invoice' => $request->user_address_invoice,
+                'payment_id' => $payment_id,
+            ]);
+        } else {
+            $payment_id = $request->payment_id;
+        }
 
         // Récuperation des informations du panier
         $cart = Carts::with('product')->where('id', '=', $request->cart)->first();
@@ -256,16 +271,9 @@ class OrdersController extends FrontendBaseController
         $order->user_name = $user->name;
         $order->user_email = $user->email;
 
-        $order->user_loyality_used = $cart->loyality;
-        if ($cart->loyality == 5) $order->user_loyality_points_used = 300;
-        if ($cart->loyality == 10) $order->user_loyality_points_used = 500;
-        if ($cart->loyality == 15) $order->user_loyality_points_used = 1000;
-
         // Récuperation des informations de la livraison
         $order->delivery_id = $cart->delivery_id;
         $order->delivery_price = $cart->delivery_price;
-        $order->delivery_date = $cart->delivery_date;
-        $order->delivery_slot = $cart->delivery_slot;
 
         /*** Champs pour l'adresse de livraison ***/
         $address_delivery = Address::findOrFail($request->user_address_delivery);
@@ -324,17 +332,29 @@ class OrdersController extends FrontendBaseController
                 $productInfo->save();
             }
         }
-
-        // Modification des points FID
-        $user = User::findOrFail($cart->user_id);
-        $user->erp_loyalty_points = $user->erp_loyalty_points - $order->user_loyality_points_used;
-        $user->erp_loyalty_points = $user->erp_loyalty_points + round($cart->total_ttc / 100, 0);
-        $user->save();
-
         $cart->status = 'Commander';
         $cart->save();
+
+        //envoie du mail
+        $mailData = [
+            'order_id' => $order->id,
+            'payment_id' => $order->payment_id,
+            'name' => $order->user_delivery_first_name . ' ' . $order->user_delivery_last_name,
+            'email' => $order->user_email,
+            'total_product' => count($cart->product),
+            'total_ttc' => formatPriceToFloat($order->total_ttc),
+        ];
+        Mail::send(new NewOrderMail($mailData));
+
+        $session_id = $request->session()->regenerate();
         Cookie::queue(Cookie::forget('session_id'));
-        return to_route('orders.success');
+        cookie()->queue(cookie()->forever('session_id', $session_id));
+
+        if($payment_test == false) {
+            return $payment_id;
+        } else {
+            return to_route('orders.success');
+        }
     }
 
     public function orderValidated()

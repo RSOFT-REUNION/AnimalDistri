@@ -63,37 +63,3 @@
         </div>
     </div>
 @endempty
-@empty(!@$delivery_chose)
-    <div class="card bg-gray mb-4">
-        <div class="card-body">
-            <div class="row align-items-center">
-                <div class="text-center">
-                    <img class="w-25 mb-3" src="{{ getImageUrl(('/upload/order/delivery/'.$delivery_chose->image), 100, 100) }}" alt="{{ $delivery_chose->name }}">
-                </div>
-                <div class="d-flex justify-content-end">
-                    <h4 class="flex-fill">{{ $delivery_chose->name }}</h4>
-                    <p class=""><b>@if($delivery_chose->price_ttc == 0) <b>Gratuit</b> @else {{ $delivery_chose->price_ttc }} €@endif</b></p>
-                </div>
-                <p class="text-center">{{ $delivery_chose->description }}</p>
-            </div>
-        </div>
-    </div>
-@endempty
-@empty(!@$delivery_date)
-    <div class="card bg-gray mb-4">
-        <div class="card-body">
-            <div class="row align-items-center">
-                <div class="text-center">
-                    <img class="w-25 mb-3" src="{{ asset('frontend/images/24-hours.png') }}" alt="hours">
-                    <h4>{{ ucfirst(formatDateInFrench($delivery_date)) }}</h4>
-                    @if($delivery_slot == 'matin')
-                        <h5>Entre 9h et 13h</h5>
-                    @elseif($delivery_slot == 'aprem')
-                        <h5>Entre 14h et 18h</h5>
-                    @endif
-                </div>
-            </div>
-        </div>
-    </div>
-@endempty
-

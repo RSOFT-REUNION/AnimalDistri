@@ -26,8 +26,8 @@
 
             @auth()
                 <div>
-                    @if(Route::currentRouteName() == 'cart.chose_address' || Route::currentRouteName() == 'cart.chose_delivery' || Route::currentRouteName() == 'cart.summary')
-                        <button class="btn me-3 btn-cart bg-dark bg-opacity-75 rounded-3 position-relative hvr-grow-shadow" type="button">
+                    @if(Route::currentRouteName() == 'cart.index' || Route::currentRouteName() == 'cart.chose_address' || Route::currentRouteName() == 'cart.chose_delivery' || Route::currentRouteName() == 'cart.summary')
+                        <button class="btn p-2 me-3 btn-cart bg-dark bg-opacity-75 rounded-3 position-relative hvr-grow-shadow" type="button">
                             <i class="fa-solid fa-basket-shopping fa-xl text-white"></i>
                             <span
                                 class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><span
@@ -43,7 +43,6 @@
                                     id="nb_produit">{{ \App\Http\Controllers\Frontend\ShoppingCart\CartController::count_product() }}</span> <span
                                     class="visually-hidden">Nombres de produits dans le panier</span></span>
                         </button>
-                        @include('frontend.layouts.partials.cart_modal')
                     @endif
                 </div>
             @endauth
@@ -160,3 +159,8 @@
         </div>
     </div>
 </nav>
+@auth()
+    @if(Route::currentRouteName() != 'cart.index' || Route::currentRouteName() != 'cart.chose_address' || Route::currentRouteName() != 'cart.chose_delivery' || Route::currentRouteName() != 'cart.summary')
+        @include('frontend.layouts.partials.cart_modal')
+    @endif
+@endauth

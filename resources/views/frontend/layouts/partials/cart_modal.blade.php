@@ -10,7 +10,7 @@
         @if(count($cart->product) > 0)
 
             <div class="d-none d-lg-block">
-                <div class="row d-flex justify-content-between align-items-center text-center">
+                <div class="row d-flex justify-content-between align-items-center text-center  text-dark">
                     <div class="col-md-2">
 
                     </div>
@@ -31,7 +31,7 @@
             </div>
 
             @foreach($cart->product as $product)
-                <div class="row d-flex justify-content-between align-items-center mt-3 mb-3 text-center">
+                <div class="row d-flex justify-content-between align-items-center mt-3 mb-3 text-center  text-dark">
                     <div class="col-md-2">
                         <a href="{{ route('product.show', getProductInfos($product->product_id)->slug) }}">
                             <img src="{{ getImageUrl(removeStorageFromURL($product->fav_image), 80, 80, 'fill-max') }}" class="img-fluid" alt="{{ $product->name }}">
@@ -72,7 +72,7 @@
                         @endif
                     </div>
                     <div class="col-md-1 text-center">
-                        <button type="button" class="btn text-danger p-0" data-bs-toggle="modal" data-bs-target="#deleteproduct{{ $product->id }}"><i class="fas fa-trash fa-lg"></i></button>
+                        <a href="{{ route('cart.delete_product', $product->id) }}" type="button" class="btn text-danger p-0"><i class="fas fa-trash fa-lg"></i></a>
                     </div>
                 </div>
                 <hr>
@@ -82,7 +82,7 @@
             <a href="{{ route('cart.index') }}" class="btn btn-success btn-lg hvr-grow-shadow" id="commander"><i class="fa-solid fa-cart-shopping-fast"></i> Commander</a>
 
         @else
-            <h4 class="mt-5">Vous n'avez aucun produits dans votre panier</h4>
+            <h4 class="mt-5 text-dark">Vous n'avez aucun produits dans votre panier</h4>
         @endif
     </div>
     <div class="offcanvas-footer text-center mb-3 mt-3">

@@ -117,74 +117,16 @@
                                     </div>
                                     <h4 class="flex-fill">{{ $order->getDeliverName() }}</h4>
                                     <h2 class=""><b>@if($order->delivery_price == 0) <b>Gratuit</b> @else {{ $order->delivery_price }} €@endif</b></h2>
-                                    @empty(!@$order->delivery_date)
-                                        <div class="text-center">
-                                            <h5>{{ formatDateInFrench($order->delivery_date) }} :
-                                                @if($order->delivery_slot == 'matin') Entre 9h et 13h @elseif($order->delivery_slot == 'aprem') Entre 14h et 18h @endif</h5>
-                                        </div>
-                                    @endempty
                                     <p class="text-center">{{ $order->getDeliverDescription() }}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-2 col-12">
-                        @if($order->user_loyality_used == 0)
-                            <div class="card bg-warning content">
-                                <div class="card-body">
-                                    <div class="text-center">
-                                        <img class="w-50 mb-3 mt-3" src="{{ asset('frontend/images/discount.png') }}">
-                                        <h4 class="mx-auto">Je n'ai pas utiliser mes points</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        @elseif($order->user_loyality_used == 5)
-                            <div class="card bg-warning content">
-                                <div class="card-body">
-                                    <div class="text-center">
-                                        <img class="w-50 mb-3 mt-3" src="{{ asset('frontend/images/discount.png') }}">
-                                        <h2 class="mx-auto">- 5 <i class="fa-solid fa-percent"></i></h2>
-                                        <p>J'ai utilisé <b>300</b> point de fidélité.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        @elseif($order->user_loyality_used == 10)
-                            <div class="card bg-warning content">
-                                <div class="card-body">
-                                    <div class="text-center">
-                                        <img class="w-50 mb-3 mt-3" src="{{ asset('frontend/images/discount.png') }}">
-                                        <h2 class="mx-auto">- 10 <i class="fa-solid fa-percent"></i></h2>
-                                        <p>J'ai utilisé <b>500</b> point de fidélité.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        @elseif($order->user_loyality_used == 15)
-                            <div class="card bg-warning content">
-                                <div class="card-body">
-                                    <div class="text-center">
-                                        <img class="w-50 mb-3 mt-3" src="{{ asset('frontend/images/discount.png') }}">
-                                        <h2 class="mx-auto">- 15 <i class="fa-solid fa-percent"></i></h2>
-                                        <p>J'ai utilisé <b>1 000</b> point de fidélité.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
-                    </div>
-
                 </div>
 
                 <div class="p-3">
                     <h2 id="sous-total" class="text-end mt-4">Sous-total ({{ $order->countProduct() }} article(s)) :  {{ formatPriceToFloat($order->total_ttc) }} €</h2>
-                    @if($order->user_loyality_used == 5)
-                        <h4 class="text-end">Remise de 5% (<b>- {{ formatPriceToFloat($order->countProductsPrice(0,0) * 5 / 100) }} €</b>) <br> Hors cout de livraison</h4>
-                    @endif
-                    @if($order->user_loyality_used == 10)
-                        <h4 class="text-end">Remise de 10%  (<b>- {{ formatPriceToFloat($order->countProductsPrice(0,0) * 10 / 100) }} €</b>) <br> Hors cout de livraison</h4>
-                    @endif
-                    @if($order->user_loyality_used == 15)
-                        <h4 class="text-end">Remise de 15% (<b>- {{ formatPriceToFloat($order->countProductsPrice(0,0) * 15 / 100) }} €</b>) <br> Hors cout de livraison</h4>
-                    @endif
                     <p class="text-end" >Le total de la commande inclut la TVA et la livraison.</p>
                 </div>
 

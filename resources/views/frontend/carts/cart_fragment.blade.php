@@ -26,6 +26,9 @@
                     <hr>
                 </div>
                 @foreach($cart->product as $product)
+                    @php
+                        $uniqid = uniqid();
+                    @endphp
                     <div class="row d-flex justify-content-between align-items-center mt-3 mb-3 text-center">
                         <div class="col-md-2">
                             <a href="{{ route('product.show', getProductInfos($product->product_id)->slug) }}">
@@ -100,8 +103,8 @@
                             @endif
                         </div>
                         <div class="col-md-1">
-                            <button type="button" class="btn text-danger p-0" data-bs-toggle="modal" data-bs-target="#deleteproduct{{ $product->id }}"><i class="fas fa-trash fa-lg"></i></button>
-                            <div class="modal fade" id="deleteproduct{{ $product->id }}" tabindex="-1" aria-labelledby="deleteproduct{{ $product->id }}" aria-hidden="true">
+                            <button type="button" class="btn text-danger p-0" data-bs-toggle="modal" data-bs-target="#deleteproduct{{ $uniqid }}"><i class="fas fa-trash fa-lg"></i></button>
+                            <div class="modal fade" id="deleteproduct{{ $uniqid }}" aria-labelledby="deleteproduct{{ $uniqid }}">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">

@@ -3,11 +3,12 @@
 
 @section('main-content')
 
-    <div style="margin-top: 60px;" class="mb-5">
-        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-            <ol class="breadcrumb breadcrumb-nav mt-5 p-3 rounded-3 shadow">
-                <li class="breadcrumb-item"><a href="{{ route('index') }}"><i class="fa-solid fa-home"></i></a></li>
-                <li class="breadcrumb-item active text-white" aria-current="page">Récapitulatif de la commande</li>
+    <div style="margin-top: -15px;" class="mb-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-nav mt-5 p-3 custom-breadcrumb">
+                <li class="breadcrumb-item"><a class="link-dark" href="{{ route('index') }}"><i class="fa-solid fa-home"></i></a></li>
+                <li class="breadcrumb-item"><a class="link-dark" href="{{ route('cart.index') }}">Mon panier</a></li>
+                <li class="breadcrumb-item active link-dark" aria-current="page">Récapitulatif de la commande</li>
             </ol>
         </nav>
     </div>
@@ -196,72 +197,16 @@
                 </div>
             </div>
         </div>
-
-
-    <div class="col-md-2 col-12 mb-3">
-        @if($cart->loyality == 0)
-            <div class="card bg-warning content">
-                <div class="card-body">
-                    <div class="text-center">
-                        <img class="w-50 mb-3 mt-3" src="{{ asset('frontend/images/discount.png') }}">
-                        <h4 class="mx-auto">Je ne souhaite pas utiliser mes points</h4>
-                    </div>
-                </div>
-            </div>
-        @elseif($cart->loyality == 5)
-            <div class="card bg-warning content">
-                <div class="card-body">
-                    <div class="text-center">
-                        <img class="w-50 mb-3 mt-3" src="{{ asset('frontend/images/discount.png') }}">
-                        <h2 class="mx-auto">- 5 <i class="fa-solid fa-percent"></i></h2>
-                        <p><b>300</b> point de fidélité seront utilisé.</p>
-                    </div>
-                </div>
-            </div>
-        @elseif($cart->loyality == 10)
-            <div class="card bg-warning content">
-                <div class="card-body">
-                    <div class="text-center">
-                        <img class="w-50 mb-3 mt-3" src="{{ asset('frontend/images/discount.png') }}">
-                        <h2 class="mx-auto">- 10 <i class="fa-solid fa-percent"></i></h2>
-                        <p><b>500</b> point de fidélité seront utilisé.</p>
-                    </div>
-                </div>
-            </div>
-        @elseif($cart->loyality == 15)
-            <div class="card bg-warning content">
-                <div class="card-body">
-                    <div class="text-center">
-                        <img class="w-50 mb-3 mt-3" src="{{ asset('frontend/images/discount.png') }}">
-                        <h2 class="mx-auto">- 15 <i class="fa-solid fa-percent"></i></h2>
-                        <p><b>1 000</b> point de fidélité seront utilisé.</p>
-                    </div>
-                </div>
-            </div>
-        @endif
-    </div>
 </div>
 
     <div class="p-3">
         <h2 id="sous-total" class="text-end mt-4">Sous-total ({{ $cart->countProduct() }} article(s)) :  {{ formatPriceToFloat($cart->total_ttc) }} €</h2>
-        @if($cart->loyality == 5)
-            <h4 class="text-end">Remise de 5% (<b>- {{ formatPriceToFloat($cart->countProductsPrice(0,0) * 5 / 100) }} €</b>) <br> Hors cout de livraison</h4>
-        @endif
-        @if($cart->loyality == 10)
-            <h4 class="text-end">Remise de 10%  (<b>- {{ formatPriceToFloat($cart->countProductsPrice(0,0) * 10 / 100) }} €</b>) <br> Hors cout de livraison</h4>
-        @endif
-        @if($cart->loyality == 15)
-            <h4 class="text-end">Remise de 15% (<b>- {{ formatPriceToFloat($cart->countProductsPrice(0,0) * 15 / 100) }} €</b>) <br> Hors cout de livraison</h4>
-        @endif
         <p class="text-end" >Le total de la commande inclut la TVA et la livraison.</p>
     </div>
 
 
-
-
-
     <div class="text-center">
-        <form action="{{ route('orders.cart_validation') }}" method="post"> @csrf
+        <form action="{{ route('orders.cart_validation', 'PAYMENT_TEST') }}" method="post"> @csrf
             <input type="hidden" name="payment_id" value="PAYMENT_TEST">
 
             {{-- Renvoit vers la plateforme de payement <form action="{{ route('orders.send_payment') }}" method="post"> @csrf --}}
