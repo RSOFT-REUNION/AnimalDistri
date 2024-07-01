@@ -162,6 +162,19 @@ return new class extends Migration
             ]
         ];
         addPermissions($permissions);
+        /*** Ajout des permisions de groupe utilisateurs (Clients)**/
+        $permissions = [
+            [
+                'category' => 'Clients',
+                'group_name' => 'Paniers',
+                'permissions' => [
+                    'clients.groups.create',
+                    'clients.groups.update',
+                    'clients.groups.delete',
+                ],
+            ]
+        ];
+        addPermissions($permissions);
     }
 
     /**

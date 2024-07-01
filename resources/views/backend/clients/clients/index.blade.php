@@ -46,7 +46,7 @@
                                 <th scope="col" class="text-center" style="width: 5%;">#</th>
                                 <th scope="col" class="text-center">Nom</th>
                                 <th scope="col" class="text-center">Adresse Mail</th>
-                                <th scope="col" class="text-center">PointFID</th>
+                                <th scope="col" class="text-center">Groupe</th>
                                 <th scope="col" class="text-center no-sort" style="width: 5%;"><i class="fa-duotone fa-envelope-open-text"></i></th>
                                 <th scope="col" class="text-center no-sort" style="width: 5%;"><i class="fa-duotone fa-shield-check"></i></th>
                                 <th scope="col" class="text-center no-sort" style="width: 10%;"><i
@@ -59,11 +59,11 @@
                                     <td class="text-center">{{ $client->id }}</td>
                                     <td>{{ $client->name }}</td>
                                     <td>{{ $client->email }}</td>
-                                    <td>{{ $client->erp_loyalty_points }}</td>
+                                    <td>{{ $client->groups->name ?? 'Aucun groupe' }}</td>
                                     <td class="text-center">{{ $client->checkNewsletter($client->newsletter) }}</td>
                                     <td class="text-center">{{ $client->checkEmailVerified($client->email_verified_at) }}</td>
                                     <td class="text-center">
-                                        <a href="{{ route('backend.clients.client.adresse', $client->id ) }}" class="btn btn-warning btn-sm"><i class="fa-solid fa-location-dot"></i></a>
+                                        <a href="{{ route('backend.clients.client.edit', $client ) }}" class="btn btn-warning btn-sm"><i class="fa-solid fa-eye"></i></a>
                                         @can('clients.delete')
                                             <button type="button" class="btn btn-danger btn-sm"
                                                     title="Supprimer"

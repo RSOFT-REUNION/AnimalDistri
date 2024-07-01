@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Imports\UsersImport;
 use App\Models\Carts\Carts;
 use App\Models\Users\Address;
+use App\Models\Users\Cities;
+use App\Models\Users\Groups;
 use App\Models\Users\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -19,9 +21,28 @@ class ClientsController extends Controller
      */
     public function index()
     {
-        return view('backend.clients.index', [
-            'clients' => User::orderBy('id','DESC')->get()
+        return view('backend.clients.clients.index', [
+            'clients' => User::with('groups', 'adresses')->orderBy('id','DESC')->get(),
         ]);
+    }
+
+    public function edit(User $client) {
+        return view('backend.clients.clients.form', [
+            'client' => $client,
+            'groups_list' => Groups::where('active', 1)->get(),
+            'cities' => Cities::orderBy('city','ASC')->get(),
+        ]);
+    }
+
+    public function update(Request $request, User $client)
+    {
+        $validated = $request->validate([
+            'groups_id' => 'nullable',
+            'active' => '',
+        ]);
+        @$validated['active'] = $validated['active']=='on' ? 1:0;
+        $client->update($validated);
+        return back()->withSuccess('Client mise a jour avec succès');
     }
 
     /**
@@ -30,7 +51,7 @@ class ClientsController extends Controller
     public function destroy(User $client)
     {
         $client->delete();
-        return back()->withSuccess('Clients supprimée avec succès');
+        return back()->withSuccess('Clients supprimés avec succès');
     }
 
     /**
@@ -38,7 +59,7 @@ class ClientsController extends Controller
      */
     public function addresses(User $client)
     {
-        return view('backend.clients.addresses', [
+        return view('backend.clients.clients.addresses', [
             'client' => $client,
             'addresses' => Address::where('user_id', '=', $client->id)->get(),
         ]);
@@ -66,7 +87,7 @@ class ClientsController extends Controller
     public function import(Request $request)
     {
         Excel::import(new UsersImport(), $request->csv, $request->csv);
-        return back()->withSuccess('Clients importer avec succès');
+        return back()->withSuccess('Clients importés avec succès');
     }
 
 }

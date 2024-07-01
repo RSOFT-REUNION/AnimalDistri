@@ -17,6 +17,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array<int, string>
      */
     protected $fillable = [
+        'groups_id',
         'name',
         'civility',
         'last_name',
@@ -74,5 +75,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function adresses() {
         return $this->hasMany(Address::class);
+    }
+
+    public function groups() {
+        return $this->BelongsTo(Groups::class);
     }
 }

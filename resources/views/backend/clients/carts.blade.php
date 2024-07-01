@@ -21,7 +21,7 @@
                                 <th scope="col" class="text-center">Utilisateur</th>
                                 <th scope="col" class="text-center">Status</th>
                                 <th scope="col" class="text-center no-sort" style="width: 10%;"><i
-                                        class="fa-duotone fa-arrows-minimize"></i></th>
+                                            class="fa-duotone fa-arrows-minimize"></i></th>
                             </tr>
                             </thead>
 
@@ -31,10 +31,12 @@
                                     <td class="text-center">{{ $cart->getUser($cart->user_id) }}</td>
                                     <td class="text-center">{{ $cart->getStatus($cart->status) }}</td>
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#cart{{ $cart->id }}"><i class="fa-regular fa-circle-info"></i></button>
+                                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                                data-bs-target="#cart{{ $cart->id }}"><i
+                                                    class="fa-regular fa-circle-info"></i></button>
                                     </td>
                                 </tr>
-                                @include('backend.clients.partial.cartsproductsmodal')
+                                @include('backend.clients.clients.partial.cartsproductsmodal')
                             @endforeach
 
                         </table>

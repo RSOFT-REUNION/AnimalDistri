@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(\App\Models\Users\Groups::class)->nullable()->cascadeOnDelete();
             $table->enum('civility', ['Mr', 'Mme'])->default('Mr');
             $table->string('name');
             $table->string('last_name')->nullable();
@@ -23,7 +24,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('photo')->nullable();
             $table->date('birthday')->nullable();
-            $table->boolean('active')->default(0);
+            $table->boolean('active')->default(1);
             $table->boolean('newsletter')->default(0);
             $table->string('erp_id')->nullable();
             $table->string('erp_loyalty_points')->nullable();

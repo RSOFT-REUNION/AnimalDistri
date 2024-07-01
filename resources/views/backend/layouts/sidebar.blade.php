@@ -103,6 +103,9 @@
                     @canany(filtrerPermission('clients.client'))
                         <a class="collapse-item {{ Nav::urlDoesContain('clients/client') }}" href="{{ route('backend.clients.client.index') }}" aria-expanded="false"><i class="fa-solid fa-user"></i><span> Clients </span></a>
                     @endcanany
+                        @canany(filtrerPermission('clients.groups'))
+                            <a class="collapse-item {{ Nav::urlDoesContain('clients/groups') }}" href="{{ route('backend.clients.groups.index') }}" aria-expanded="false"><i class="fa-solid fa-user-group"></i><span> Groupes </span></a>
+                        @endcanany
                     @canany(filtrerPermission('clients.carts'))
                         <a class="collapse-item {{ Nav::urlDoesContain('clients/paniers') }}" href="{{ route('backend.clients.carts.index') }}" aria-expanded="false"><i class="fa-solid fa-cart-shopping"></i><span> Paniers </span></a>
                     @endcanany
