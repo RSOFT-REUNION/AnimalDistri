@@ -23,7 +23,7 @@
     <div class="row row-flex">
         <div class="col-12 col-md-2 content p-5"></div>
         <div class="col-12 col-md-8 content p-5">
-            <form method="POST" action="">
+            <form method="POST" action="{{ route('newaccount') }}">
                 @csrf
 
                 <div class="row">

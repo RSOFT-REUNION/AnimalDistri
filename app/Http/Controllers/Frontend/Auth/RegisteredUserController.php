@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend\Auth;
 
 use App\Http\Controllers\Frontend\FrontendBaseController;
+use App\Mail\NewAccountMail;
 use App\Models\Users\Address;
 use App\Models\Users\User;
 use Illuminate\Auth\Events\Registered;
@@ -10,6 +11,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
@@ -23,6 +26,26 @@ class RegisteredUserController extends FrontendBaseController
     public function create(): View
     {
         return view('frontend.auth.register');
+    }
+
+    /**
+     * Send E-mail to create new account.
+     */
+    public function newaccount(Request $request)
+    {
+        //envoie du mail
+        $mailData = [
+            'civility' => $request->civility,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'entreprise_name' => $request->entreprise_name,
+            'siret' => $request->siret,
+            'cities' => $request->cities,
+            'phone' => $request->phone,
+        ];
+        Mail::send(new NewAccountMail($mailData));
+        return redirect()->route('index')->withSuccess('Nous avons bien enregistré votre demande. Nous reviendrons vers vous dans les plus brefs délais.');
     }
 
     /**

@@ -20,6 +20,8 @@ Route::middleware('guest')->group(function () {
     Route::get('creer-un-compte', [RegisteredUserController::class, 'create'])
                 ->name('register');
 
+    Route::post('demmander-un-compte', [RegisteredUserController::class, 'newaccount'])->name('newaccount');
+
     Route::post('creer-un-compte', [RegisteredUserController::class, 'store']);
 
     Route::get('connexion', [AuthenticatedSessionController::class, 'create'])

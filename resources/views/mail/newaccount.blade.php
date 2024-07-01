@@ -315,7 +315,7 @@
                             </p>
 
                             <p>Bonjour,</p>
-                            <p>Vous avez reçu une nouvelle commande - {{ $data['payment_id'] }}</p>
+                            <p>Vous avez reçu une nouvelle demande de création de compte</p>
                             <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                                 <tbody>
                                 <tr>
@@ -323,7 +323,7 @@
                                         <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                                             <tr>
                                                 <th class="content-block">Nom :</th>
-                                                <td>{{ $data['name'] }}</td>
+                                                <td>{{ $data['civility'] .' '. $data['last_name'] .' '. $data['first_name'] }}</td>
                                             </tr>
 
                                             <tr>
@@ -332,13 +332,23 @@
                                             </tr>
 
                                             <tr>
-                                                <th class="content-block">Nombres d'article :</th>
-                                                <td>{{ $data['total_product'] }}</td>
+                                                <th class="content-block">Entreprise :</th>
+                                                <td>{{ $data['entreprise_name'] }}</td>
                                             </tr>
 
                                             <tr>
-                                                <th class="content-block">Total TTC :</th>
-                                                <td>{{ $data['total_ttc'] }} €</td>
+                                                <th class="content-block">Siret :</th>
+                                                <td>{{ $data['siret'] }}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <th class="content-block">Ville :</th>
+                                                <td>{{ $data['cities'] }}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <th class="content-block">Téléphone :</th>
+                                                <td>{{ $data['phone'] }}</td>
                                             </tr>
 
                                         </table>
@@ -347,12 +357,6 @@
                                 </tbody>
                             </table>
                             <br>
-
-                            <div class="align-center btn btn-primary">
-                                <a href="{{ route('backend.orders.orders.edit', $data['order_id']) }}" target="_blank">
-                                    Voir la commande dans l'espace administration
-                                </a>
-                            </div>
 
                             <p>Cordialement,<br>{{ config('app.name') }}</p>
                         </td>
@@ -366,7 +370,7 @@
                     <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                         <tr>
                             <td class="content-block">
-                                <span class="apple-link">Annimal Distri</span>
+                                <span class="apple-link">Animal Distri</span>
                             </td>
                         </tr>
                     </table>
