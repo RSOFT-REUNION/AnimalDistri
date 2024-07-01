@@ -15,6 +15,11 @@ class ProfileController extends FrontendBaseController
 {
     public function index()
     {
+        $user = Auth::user();
+        if($user->created_at == $user->updated_at) {
+            return view('frontend.auth.change-password');
+        }
+
         return view('frontend.profile.partials.index');
     }
 

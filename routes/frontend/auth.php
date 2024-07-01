@@ -22,6 +22,7 @@ Route::middleware('guest')->group(function () {
 
     Route::post('demmander-un-compte', [RegisteredUserController::class, 'newaccount'])->name('newaccount');
 
+
     Route::post('creer-un-compte', [RegisteredUserController::class, 'store']);
 
     Route::get('connexion', [AuthenticatedSessionController::class, 'create'])
@@ -56,6 +57,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
+
+    Route::post('changement-du-mot-de-passe', [NewPasswordController::class, 'changePassword'])
+        ->name('password.changePassword');
+
 });
 Route::middleware(['auth', 'verified'])->group(function ()  use ($idRegex, $slugRegex) {
     Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])

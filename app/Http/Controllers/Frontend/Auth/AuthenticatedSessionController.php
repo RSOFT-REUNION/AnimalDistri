@@ -31,6 +31,7 @@ class AuthenticatedSessionController extends FrontendBaseController
         if($request->page == 'cart') {
             return to_route('cart.index');
         }
+
         return redirect()->intended(route('dashboard', absolute: false));
     }
 

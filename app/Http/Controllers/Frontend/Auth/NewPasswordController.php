@@ -6,6 +6,7 @@ use App\Http\Controllers\Frontend\FrontendBaseController;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
@@ -57,4 +58,16 @@ class NewPasswordController extends FrontendBaseController
                     : back()->withInput($request->only('email'))
                             ->withErrors(['email' => __($status)]);
     }
+
+    public function changePassword(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+        $user = Auth::user();
+        $user->password = Hash::make($request->password);
+        $user->save();
+        return redirect()->route('dashboard');
+    }
+
 }
